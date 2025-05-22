@@ -30,7 +30,6 @@
         {
             displayListView = new ListView();
             columnHeader1 = new ColumnHeader();
-            columnHeader2 = new ColumnHeader();
             staffListView = new ListView();
             columnHeader3 = new ColumnHeader();
             columnHeader4 = new ColumnHeader();
@@ -50,15 +49,18 @@
             sortLabel = new Label();
             sortUpButton = new Button();
             sortDownButton = new Button();
+            columnHeader2 = new ColumnHeader();
             SuspendLayout();
             // 
             // displayListView
             // 
             displayListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
             displayListView.GridLines = true;
-            displayListView.Location = new Point(26, 79);
+            displayListView.Location = new Point(23, 59);
+            displayListView.Margin = new Padding(3, 2, 3, 2);
             displayListView.Name = "displayListView";
-            displayListView.Size = new Size(405, 419);
+            displayListView.Scrollable = false;
+            displayListView.Size = new Size(355, 320);
             displayListView.TabIndex = 0;
             displayListView.UseCompatibleStateImageBehavior = false;
             displayListView.View = View.Details;
@@ -68,18 +70,14 @@
             columnHeader1.Text = "Dates";
             columnHeader1.Width = 200;
             // 
-            // columnHeader2
-            // 
-            columnHeader2.Text = "Staff";
-            columnHeader2.Width = 200;
-            // 
             // staffListView
             // 
             staffListView.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4 });
             staffListView.GridLines = true;
-            staffListView.Location = new Point(451, 182);
+            staffListView.Location = new Point(395, 162);
+            staffListView.Margin = new Padding(3, 2, 3, 2);
             staffListView.Name = "staffListView";
-            staffListView.Size = new Size(405, 176);
+            staffListView.Size = new Size(355, 133);
             staffListView.TabIndex = 1;
             staffListView.UseCompatibleStateImageBehavior = false;
             staffListView.View = View.Details;
@@ -97,52 +95,55 @@
             // scheduleLabel
             // 
             scheduleLabel.AutoSize = true;
-            scheduleLabel.Location = new Point(184, 36);
+            scheduleLabel.Location = new Point(161, 27);
             scheduleLabel.Name = "scheduleLabel";
-            scheduleLabel.Size = new Size(69, 20);
+            scheduleLabel.Size = new Size(55, 15);
             scheduleLabel.TabIndex = 2;
             scheduleLabel.Text = "Schedule";
             // 
             // staffLabel
             // 
             staffLabel.AutoSize = true;
-            staffLabel.Location = new Point(618, 150);
+            staffLabel.Location = new Point(541, 138);
             staffLabel.Name = "staffLabel";
-            staffLabel.Size = new Size(40, 20);
+            staffLabel.Size = new Size(31, 15);
             staffLabel.TabIndex = 3;
             staffLabel.Text = "Staff";
             // 
             // siteLabel
             // 
             siteLabel.AutoSize = true;
-            siteLabel.Location = new Point(618, 36);
+            siteLabel.Location = new Point(541, 27);
             siteLabel.Name = "siteLabel";
-            siteLabel.Size = new Size(34, 20);
+            siteLabel.Size = new Size(26, 15);
             siteLabel.TabIndex = 4;
             siteLabel.Text = "Site";
             // 
             // siteComboBox
             // 
             siteComboBox.FormattingEnabled = true;
-            siteComboBox.Location = new Point(502, 79);
+            siteComboBox.Location = new Point(439, 59);
+            siteComboBox.Margin = new Padding(3, 2, 3, 2);
             siteComboBox.Name = "siteComboBox";
-            siteComboBox.Size = new Size(300, 28);
+            siteComboBox.Size = new Size(263, 23);
             siteComboBox.TabIndex = 5;
             // 
             // printButton
             // 
-            printButton.Location = new Point(700, 518);
+            printButton.Location = new Point(613, 416);
+            printButton.Margin = new Padding(3, 2, 3, 2);
             printButton.Name = "printButton";
-            printButton.Size = new Size(100, 40);
+            printButton.Size = new Size(88, 30);
             printButton.TabIndex = 6;
             printButton.Text = "Print";
             printButton.UseVisualStyleBackColor = true;
             // 
             // exitButton
             // 
-            exitButton.Location = new Point(821, 518);
+            exitButton.Location = new Point(719, 416);
+            exitButton.Margin = new Padding(3, 2, 3, 2);
             exitButton.Name = "exitButton";
-            exitButton.Size = new Size(100, 40);
+            exitButton.Size = new Size(88, 30);
             exitButton.TabIndex = 7;
             exitButton.Text = "Exit";
             exitButton.UseVisualStyleBackColor = true;
@@ -150,97 +151,110 @@
             // 
             // previousScheduleButton
             // 
-            previousScheduleButton.Location = new Point(133, 518);
+            previousScheduleButton.Location = new Point(117, 416);
+            previousScheduleButton.Margin = new Padding(3, 2, 3, 2);
             previousScheduleButton.Name = "previousScheduleButton";
-            previousScheduleButton.Size = new Size(78, 40);
+            previousScheduleButton.Size = new Size(68, 30);
             previousScheduleButton.TabIndex = 8;
             previousScheduleButton.Text = "Previous";
             previousScheduleButton.UseVisualStyleBackColor = true;
             // 
             // nextScheduleButton
             // 
-            nextScheduleButton.Location = new Point(232, 518);
+            nextScheduleButton.Location = new Point(204, 416);
+            nextScheduleButton.Margin = new Padding(3, 2, 3, 2);
             nextScheduleButton.Name = "nextScheduleButton";
-            nextScheduleButton.Size = new Size(78, 40);
+            nextScheduleButton.Size = new Size(68, 30);
             nextScheduleButton.TabIndex = 9;
             nextScheduleButton.Text = "Next";
             nextScheduleButton.UseVisualStyleBackColor = true;
             // 
             // addSiteButton
             // 
-            addSiteButton.Location = new Point(477, 373);
+            addSiteButton.Location = new Point(417, 306);
+            addSiteButton.Margin = new Padding(3, 2, 3, 2);
             addSiteButton.Name = "addSiteButton";
-            addSiteButton.Size = new Size(100, 40);
+            addSiteButton.Size = new Size(88, 30);
             addSiteButton.TabIndex = 10;
             addSiteButton.Text = "Add";
             addSiteButton.UseVisualStyleBackColor = true;
             // 
             // editSiteButton
             // 
-            editSiteButton.Location = new Point(608, 373);
+            editSiteButton.Location = new Point(532, 306);
+            editSiteButton.Margin = new Padding(3, 2, 3, 2);
             editSiteButton.Name = "editSiteButton";
-            editSiteButton.Size = new Size(100, 40);
+            editSiteButton.Size = new Size(88, 30);
             editSiteButton.TabIndex = 11;
             editSiteButton.Text = "Edit";
             editSiteButton.UseVisualStyleBackColor = true;
             // 
             // deleteSiteButton
             // 
-            deleteSiteButton.Location = new Point(742, 373);
+            deleteSiteButton.Location = new Point(649, 306);
+            deleteSiteButton.Margin = new Padding(3, 2, 3, 2);
             deleteSiteButton.Name = "deleteSiteButton";
-            deleteSiteButton.Size = new Size(100, 40);
+            deleteSiteButton.Size = new Size(88, 30);
             deleteSiteButton.TabIndex = 12;
             deleteSiteButton.Text = "Delete";
             deleteSiteButton.UseVisualStyleBackColor = true;
             // 
             // yearTextBox
             // 
-            yearTextBox.Location = new Point(856, 79);
+            yearTextBox.Location = new Point(749, 59);
+            yearTextBox.Margin = new Padding(3, 2, 3, 2);
             yearTextBox.Name = "yearTextBox";
-            yearTextBox.Size = new Size(79, 27);
+            yearTextBox.Size = new Size(70, 23);
             yearTextBox.TabIndex = 13;
             // 
             // yearLabel
             // 
             yearLabel.AutoSize = true;
-            yearLabel.Location = new Point(874, 36);
+            yearLabel.Location = new Point(765, 27);
             yearLabel.Name = "yearLabel";
-            yearLabel.Size = new Size(37, 20);
+            yearLabel.Size = new Size(29, 15);
             yearLabel.TabIndex = 14;
             yearLabel.Text = "Year";
             // 
             // sortLabel
             // 
             sortLabel.AutoSize = true;
-            sortLabel.Location = new Point(885, 191);
+            sortLabel.Location = new Point(774, 169);
             sortLabel.Name = "sortLabel";
-            sortLabel.Size = new Size(36, 20);
+            sortLabel.Size = new Size(28, 15);
             sortLabel.TabIndex = 15;
             sortLabel.Text = "Sort";
             // 
             // sortUpButton
             // 
-            sortUpButton.Location = new Point(874, 224);
+            sortUpButton.Location = new Point(765, 194);
+            sortUpButton.Margin = new Padding(3, 2, 3, 2);
             sortUpButton.Name = "sortUpButton";
-            sortUpButton.Size = new Size(61, 40);
+            sortUpButton.Size = new Size(53, 30);
             sortUpButton.TabIndex = 16;
             sortUpButton.Text = "Up";
             sortUpButton.UseVisualStyleBackColor = true;
             // 
             // sortDownButton
             // 
-            sortDownButton.Location = new Point(874, 282);
+            sortDownButton.Location = new Point(765, 238);
+            sortDownButton.Margin = new Padding(3, 2, 3, 2);
             sortDownButton.Name = "sortDownButton";
-            sortDownButton.Size = new Size(61, 40);
+            sortDownButton.Size = new Size(53, 30);
             sortDownButton.TabIndex = 17;
             sortDownButton.Text = "Down";
             sortDownButton.UseVisualStyleBackColor = true;
             // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Staff";
+            columnHeader2.Width = 150;
+            // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(954, 575);
+            ClientSize = new Size(835, 471);
             Controls.Add(sortDownButton);
             Controls.Add(sortUpButton);
             Controls.Add(sortLabel);
@@ -260,6 +274,7 @@
             Controls.Add(staffListView);
             Controls.Add(displayListView);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -272,7 +287,6 @@
 
         private ListView displayListView;
         private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
         private ListView staffListView;
         private ColumnHeader columnHeader3;
         private ColumnHeader columnHeader4;
@@ -292,5 +306,6 @@
         private Label sortLabel;
         private Button sortUpButton;
         private Button sortDownButton;
+        private ColumnHeader columnHeader2;
     }
 }
