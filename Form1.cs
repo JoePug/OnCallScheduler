@@ -1,5 +1,7 @@
 
 
+
+
 namespace OnCallScheduler
 {
     public partial class MainForm : Form
@@ -22,7 +24,7 @@ namespace OnCallScheduler
 
         private void LoadDatesInSchedule()
         {
-            DateHandler dh = new DateHandler();
+            DateHandler dh = new DateHandler(month, day, year);
 
             displayListView.Items.Clear();
 
