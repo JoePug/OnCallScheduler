@@ -1,7 +1,6 @@
 
 
 
-
 namespace OnCallScheduler
 {
     public partial class MainForm : Form
@@ -17,10 +16,17 @@ namespace OnCallScheduler
         public MainForm()
         {
             InitializeComponent();
-
-            LoadDatesInSchedule();
+            StartUpStuff();
         }
 
+        private void StartUpStuff()
+        {
+            //check for first time and ask for data if it is
+            // get startup month, day and year and staff that is the first on the page
+
+
+            LoadDatesInSchedule(); //will probably happen last after all other checks and setup stuff
+        }
 
         private void LoadDatesInSchedule()
         {
@@ -40,6 +46,16 @@ namespace OnCallScheduler
 
         #region Buttons
 
+        private void nextScheduleButton_Click(object sender, EventArgs e)
+        {
+            //add 105 days
+        }
+
+        private void previousScheduleButton_Click(object sender, EventArgs e)
+        {
+            //subtract 105 days
+        }
+
         private void exitButton_Click(object sender, EventArgs e)
         {
             QuitApplication();
@@ -55,6 +71,6 @@ namespace OnCallScheduler
         }
 
         #endregion
-
+      
     }
 }

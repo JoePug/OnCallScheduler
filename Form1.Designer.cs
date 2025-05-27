@@ -30,6 +30,7 @@
         {
             displayListView = new ListView();
             columnHeader1 = new ColumnHeader();
+            columnHeader2 = new ColumnHeader();
             staffListView = new ListView();
             columnHeader3 = new ColumnHeader();
             columnHeader4 = new ColumnHeader();
@@ -41,15 +42,15 @@
             exitButton = new Button();
             previousScheduleButton = new Button();
             nextScheduleButton = new Button();
-            addSiteButton = new Button();
-            editSiteButton = new Button();
-            deleteSiteButton = new Button();
-            yearTextBox = new TextBox();
-            yearLabel = new Label();
+            addStaffButton = new Button();
+            editStaffButton = new Button();
+            deleteStaffButton = new Button();
             sortLabel = new Label();
             sortUpButton = new Button();
             sortDownButton = new Button();
-            columnHeader2 = new ColumnHeader();
+            deleteSiteButton = new Button();
+            editSiteButton = new Button();
+            addSiteButton = new Button();
             SuspendLayout();
             // 
             // displayListView
@@ -70,11 +71,16 @@
             columnHeader1.Text = "Dates";
             columnHeader1.Width = 200;
             // 
+            // columnHeader2
+            // 
+            columnHeader2.Text = "Staff";
+            columnHeader2.Width = 150;
+            // 
             // staffListView
             // 
             staffListView.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4 });
             staffListView.GridLines = true;
-            staffListView.Location = new Point(395, 162);
+            staffListView.Location = new Point(395, 193);
             staffListView.Margin = new Padding(3, 2, 3, 2);
             staffListView.Name = "staffListView";
             staffListView.Size = new Size(355, 133);
@@ -104,7 +110,7 @@
             // staffLabel
             // 
             staffLabel.AutoSize = true;
-            staffLabel.Location = new Point(541, 138);
+            staffLabel.Location = new Point(541, 169);
             staffLabel.Name = "staffLabel";
             staffLabel.Size = new Size(31, 15);
             staffLabel.TabIndex = 3;
@@ -113,7 +119,7 @@
             // siteLabel
             // 
             siteLabel.AutoSize = true;
-            siteLabel.Location = new Point(541, 27);
+            siteLabel.Location = new Point(572, 27);
             siteLabel.Name = "siteLabel";
             siteLabel.Size = new Size(26, 15);
             siteLabel.TabIndex = 4;
@@ -122,7 +128,7 @@
             // siteComboBox
             // 
             siteComboBox.FormattingEnabled = true;
-            siteComboBox.Location = new Point(439, 59);
+            siteComboBox.Location = new Point(470, 59);
             siteComboBox.Margin = new Padding(3, 2, 3, 2);
             siteComboBox.Name = "siteComboBox";
             siteComboBox.Size = new Size(263, 23);
@@ -158,6 +164,7 @@
             previousScheduleButton.TabIndex = 8;
             previousScheduleButton.Text = "Previous";
             previousScheduleButton.UseVisualStyleBackColor = true;
+            previousScheduleButton.Click += previousScheduleButton_Click;
             // 
             // nextScheduleButton
             // 
@@ -168,58 +175,42 @@
             nextScheduleButton.TabIndex = 9;
             nextScheduleButton.Text = "Next";
             nextScheduleButton.UseVisualStyleBackColor = true;
+            nextScheduleButton.Click += nextScheduleButton_Click;
             // 
-            // addSiteButton
+            // addStaffButton
             // 
-            addSiteButton.Location = new Point(417, 306);
-            addSiteButton.Margin = new Padding(3, 2, 3, 2);
-            addSiteButton.Name = "addSiteButton";
-            addSiteButton.Size = new Size(88, 30);
-            addSiteButton.TabIndex = 10;
-            addSiteButton.Text = "Add";
-            addSiteButton.UseVisualStyleBackColor = true;
+            addStaffButton.Location = new Point(417, 337);
+            addStaffButton.Margin = new Padding(3, 2, 3, 2);
+            addStaffButton.Name = "addStaffButton";
+            addStaffButton.Size = new Size(88, 30);
+            addStaffButton.TabIndex = 10;
+            addStaffButton.Text = "Add";
+            addStaffButton.UseVisualStyleBackColor = true;
             // 
-            // editSiteButton
+            // editStaffButton
             // 
-            editSiteButton.Location = new Point(532, 306);
-            editSiteButton.Margin = new Padding(3, 2, 3, 2);
-            editSiteButton.Name = "editSiteButton";
-            editSiteButton.Size = new Size(88, 30);
-            editSiteButton.TabIndex = 11;
-            editSiteButton.Text = "Edit";
-            editSiteButton.UseVisualStyleBackColor = true;
+            editStaffButton.Location = new Point(532, 337);
+            editStaffButton.Margin = new Padding(3, 2, 3, 2);
+            editStaffButton.Name = "editStaffButton";
+            editStaffButton.Size = new Size(88, 30);
+            editStaffButton.TabIndex = 11;
+            editStaffButton.Text = "Edit";
+            editStaffButton.UseVisualStyleBackColor = true;
             // 
-            // deleteSiteButton
+            // deleteStaffButton
             // 
-            deleteSiteButton.Location = new Point(649, 306);
-            deleteSiteButton.Margin = new Padding(3, 2, 3, 2);
-            deleteSiteButton.Name = "deleteSiteButton";
-            deleteSiteButton.Size = new Size(88, 30);
-            deleteSiteButton.TabIndex = 12;
-            deleteSiteButton.Text = "Delete";
-            deleteSiteButton.UseVisualStyleBackColor = true;
-            // 
-            // yearTextBox
-            // 
-            yearTextBox.Location = new Point(749, 59);
-            yearTextBox.Margin = new Padding(3, 2, 3, 2);
-            yearTextBox.Name = "yearTextBox";
-            yearTextBox.Size = new Size(70, 23);
-            yearTextBox.TabIndex = 13;
-            // 
-            // yearLabel
-            // 
-            yearLabel.AutoSize = true;
-            yearLabel.Location = new Point(765, 27);
-            yearLabel.Name = "yearLabel";
-            yearLabel.Size = new Size(29, 15);
-            yearLabel.TabIndex = 14;
-            yearLabel.Text = "Year";
+            deleteStaffButton.Location = new Point(649, 337);
+            deleteStaffButton.Margin = new Padding(3, 2, 3, 2);
+            deleteStaffButton.Name = "deleteStaffButton";
+            deleteStaffButton.Size = new Size(88, 30);
+            deleteStaffButton.TabIndex = 12;
+            deleteStaffButton.Text = "Delete";
+            deleteStaffButton.UseVisualStyleBackColor = true;
             // 
             // sortLabel
             // 
             sortLabel.AutoSize = true;
-            sortLabel.Location = new Point(774, 169);
+            sortLabel.Location = new Point(774, 200);
             sortLabel.Name = "sortLabel";
             sortLabel.Size = new Size(28, 15);
             sortLabel.TabIndex = 15;
@@ -227,7 +218,7 @@
             // 
             // sortUpButton
             // 
-            sortUpButton.Location = new Point(765, 194);
+            sortUpButton.Location = new Point(765, 225);
             sortUpButton.Margin = new Padding(3, 2, 3, 2);
             sortUpButton.Name = "sortUpButton";
             sortUpButton.Size = new Size(53, 30);
@@ -237,7 +228,7 @@
             // 
             // sortDownButton
             // 
-            sortDownButton.Location = new Point(765, 238);
+            sortDownButton.Location = new Point(765, 269);
             sortDownButton.Margin = new Padding(3, 2, 3, 2);
             sortDownButton.Name = "sortDownButton";
             sortDownButton.Size = new Size(53, 30);
@@ -245,24 +236,50 @@
             sortDownButton.Text = "Down";
             sortDownButton.UseVisualStyleBackColor = true;
             // 
-            // columnHeader2
+            // deleteSiteButton
             // 
-            columnHeader2.Text = "Staff";
-            columnHeader2.Width = 150;
+            deleteSiteButton.Location = new Point(671, 96);
+            deleteSiteButton.Margin = new Padding(3, 2, 3, 2);
+            deleteSiteButton.Name = "deleteSiteButton";
+            deleteSiteButton.Size = new Size(61, 22);
+            deleteSiteButton.TabIndex = 20;
+            deleteSiteButton.Text = "Delete";
+            deleteSiteButton.UseVisualStyleBackColor = true;
+            // 
+            // editSiteButton
+            // 
+            editSiteButton.Location = new Point(572, 96);
+            editSiteButton.Margin = new Padding(3, 2, 3, 2);
+            editSiteButton.Name = "editSiteButton";
+            editSiteButton.Size = new Size(61, 23);
+            editSiteButton.TabIndex = 19;
+            editSiteButton.Text = "Edit";
+            editSiteButton.UseVisualStyleBackColor = true;
+            // 
+            // addSiteButton
+            // 
+            addSiteButton.Location = new Point(475, 96);
+            addSiteButton.Margin = new Padding(3, 2, 3, 2);
+            addSiteButton.Name = "addSiteButton";
+            addSiteButton.Size = new Size(61, 23);
+            addSiteButton.TabIndex = 18;
+            addSiteButton.Text = "Add";
+            addSiteButton.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(835, 471);
-            Controls.Add(sortDownButton);
-            Controls.Add(sortUpButton);
-            Controls.Add(sortLabel);
-            Controls.Add(yearLabel);
-            Controls.Add(yearTextBox);
             Controls.Add(deleteSiteButton);
             Controls.Add(editSiteButton);
             Controls.Add(addSiteButton);
+            Controls.Add(sortDownButton);
+            Controls.Add(sortUpButton);
+            Controls.Add(sortLabel);
+            Controls.Add(deleteStaffButton);
+            Controls.Add(editStaffButton);
+            Controls.Add(addStaffButton);
             Controls.Add(nextScheduleButton);
             Controls.Add(previousScheduleButton);
             Controls.Add(exitButton);
@@ -298,14 +315,15 @@
         private Button exitButton;
         private Button previousScheduleButton;
         private Button nextScheduleButton;
-        private Button addSiteButton;
-        private Button editSiteButton;
-        private Button deleteSiteButton;
-        private TextBox yearTextBox;
-        private Label yearLabel;
+        private Button addStaffButton;
+        private Button editStaffButton;
+        private Button deleteStaffButton;
         private Label sortLabel;
         private Button sortUpButton;
         private Button sortDownButton;
         private ColumnHeader columnHeader2;
+        private Button deleteSiteButton;
+        private Button editSiteButton;
+        private Button addSiteButton;
     }
 }

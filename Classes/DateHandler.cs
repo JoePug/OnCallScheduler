@@ -7,6 +7,7 @@ namespace OnCallScheduler
     public class DateHandler
     {
         private DateTime date;
+        private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
 
         private string assembledDateLine = string.Empty;
         private StringBuilder sb = new StringBuilder("");
@@ -14,6 +15,7 @@ namespace OnCallScheduler
         public DateHandler(int month, int day, int year) 
         { 
             date = new DateTime(year, month, day);
+            //date = date.AddDays(-105); test line - delete when bored with it
         }
 
         public string GetNextLine()
@@ -34,7 +36,7 @@ namespace OnCallScheduler
             AddToLine(GetMonthName(date.Month)); //send the current month to AddToLine()
             AddToLine(" ");
             AddToLine(date.Day.ToString());
-            AddToLine(GetDaySuffix(date.Day)); //todo gonna have to figure out how to make this raised
+            AddToLine(GetDaySuffix(date.Day)); //todo gonna have to figure out how to make this raised - probably in the page print
             AddToLine(" - ");
             date = date.AddDays(6);
             AddToLine(GetMonthName(date.Month));
@@ -55,6 +57,8 @@ namespace OnCallScheduler
 
         private void CalculateNextDate(int year, int month, int day, int numOfDays)
         {
+            //usused as it was early code
+
             //should return the 15 start and end dates
 
             DateTime date = new DateTime(year, month, day); //year, month, day
