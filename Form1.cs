@@ -12,6 +12,7 @@ namespace OnCallScheduler
         int month = 4;
         int day = 4;
         int currentStaff = 0;
+        private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
 
         public MainForm()
         {
@@ -29,7 +30,10 @@ namespace OnCallScheduler
         }
 
         private void LoadDatesInSchedule()
-        {
+        {   
+            //probably gonna load the dates and phone numbers into a list
+            //will have to create another variable called yearFromDateHandler for the compare
+
             DateHandler dh = new DateHandler(month, day, year);
 
             displayListView.Items.Clear();
@@ -42,18 +46,37 @@ namespace OnCallScheduler
 
                 displayListView.Items.Add(lvl);
             }
+
+            if(dh.GetYear() > year)
+            {
+                yearDisplayLabel.Text = "Year: " + year.ToString() + " - " + dh.GetYear().ToString();
+            }
+            else if(dh.GetYear() < year)
+            {
+                yearDisplayLabel.Text = "Year: " + dh.GetYear().ToString() + " - " + year.ToString();
+            }
+            else
+            {
+                yearDisplayLabel.Text = "Year: " + year.ToString();
+            }
+           
         }
+
 
         #region Buttons
 
         private void nextScheduleButton_Click(object sender, EventArgs e)
         {
             //add 105 days
+            CalculateNextDate(true, false);
+            LoadDatesInSchedule();
         }
 
         private void previousScheduleButton_Click(object sender, EventArgs e)
         {
             //subtract 105 days
+            CalculateNextDate(false, true);
+            LoadDatesInSchedule();
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -64,6 +87,24 @@ namespace OnCallScheduler
         #endregion
 
         #region Other Methods
+
+        private void CalculateNextDate(bool nextPage, bool previousPage)
+        {
+            DateTime date = new DateTime(year, month, day);
+
+            if (nextPage)
+            {
+                date = date.AddDays(daysPerPage);
+            }
+            else if (previousPage)
+            {
+                date = date.AddDays(-daysPerPage);
+            }
+
+            year = date.Year;
+            month = date.Month;
+            day = date.Day;
+        }
 
         private void QuitApplication()
         {

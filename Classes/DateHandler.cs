@@ -6,8 +6,7 @@ namespace OnCallScheduler
 {
     public class DateHandler
     {
-        private DateTime date;
-        private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
+        private DateTime date;        
 
         private string assembledDateLine = string.Empty;
         private StringBuilder sb = new StringBuilder("");
@@ -27,6 +26,11 @@ namespace OnCallScheduler
             //assembledDateLine = " April 4th - April 10th";
 
             return assembledDateLine;
+        }
+
+        public int GetYear()
+        {
+            return date.Year;   
         }
 
         private void BuildTheLine()
@@ -53,17 +57,6 @@ namespace OnCallScheduler
         {
             //use stringbuilder to assemble the line
             sb.Append(text);
-        }
-
-        private void CalculateNextDate(int year, int month, int day, int numOfDays)
-        {
-            //usused as it was early code
-
-            //should return the 15 start and end dates
-
-            DateTime date = new DateTime(year, month, day); //year, month, day
-            date = date.AddDays(numOfDays);
-
         }
 
         #region Lookup Methods

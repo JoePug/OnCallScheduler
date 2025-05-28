@@ -51,6 +51,7 @@
             deleteSiteButton = new Button();
             editSiteButton = new Button();
             addSiteButton = new Button();
+            yearDisplayLabel = new Label();
             SuspendLayout();
             // 
             // displayListView
@@ -266,11 +267,21 @@
             addSiteButton.Text = "Add";
             addSiteButton.UseVisualStyleBackColor = true;
             // 
+            // yearDisplayLabel
+            // 
+            yearDisplayLabel.AutoSize = true;
+            yearDisplayLabel.Location = new Point(308, 27);
+            yearDisplayLabel.Name = "yearDisplayLabel";
+            yearDisplayLabel.Size = new Size(32, 15);
+            yearDisplayLabel.TabIndex = 21;
+            yearDisplayLabel.Text = "Year:";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(835, 471);
+            Controls.Add(yearDisplayLabel);
             Controls.Add(deleteSiteButton);
             Controls.Add(editSiteButton);
             Controls.Add(addSiteButton);
@@ -325,5 +336,6 @@
         private Button deleteSiteButton;
         private Button editSiteButton;
         private Button addSiteButton;
+        private Label yearDisplayLabel;
     }
 }
