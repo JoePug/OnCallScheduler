@@ -12,6 +12,8 @@ namespace OnCallScheduler
         int month = 4;
         int day = 4;
         int currentStaff = 0;
+        int yearFromDateHandler = 2025; // 2025 for now
+        string[] currentPageOfLines = new string[15];
         private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
 
         public MainForm()
@@ -30,37 +32,33 @@ namespace OnCallScheduler
         }
 
         private void LoadDatesInSchedule()
-        {   
-            //probably gonna load the dates and phone numbers into a list
-            //will have to create another variable called yearFromDateHandler for the compare
-
-            DateHandler dh = new DateHandler(month, day, year);
-
+        {            
+            GetNewPageOfDates();
             displayListView.Items.Clear();
-
-            for (int i = 0; i < 15; i++)
+                        
+            foreach(string line in currentPageOfLines)
             {
-                ListViewItem lvl = new ListViewItem(dh.GetNextLine());
+                ListViewItem lvl = new ListViewItem(line);
 
                 lvl.SubItems.Add("Joe Pugliese - (908)635-4106");
 
                 displayListView.Items.Add(lvl);
             }
 
-            if(dh.GetYear() > year)
+            if(yearFromDateHandler > year)
             {
-                yearDisplayLabel.Text = "Year: " + year.ToString() + " - " + dh.GetYear().ToString();
+                yearDisplayLabel.Text = "Year: " + year.ToString() + " - " + yearFromDateHandler.ToString();
             }
-            else if(dh.GetYear() < year)
+            else if(yearFromDateHandler < year)
             {
-                yearDisplayLabel.Text = "Year: " + dh.GetYear().ToString() + " - " + year.ToString();
+                yearDisplayLabel.Text = "Year: " + yearFromDateHandler.ToString() + " - " + year.ToString();
             }
             else
             {
                 yearDisplayLabel.Text = "Year: " + year.ToString();
             }
            
-        }
+        }        
 
 
         #region Buttons
@@ -87,6 +85,18 @@ namespace OnCallScheduler
         #endregion
 
         #region Other Methods
+
+        private void GetNewPageOfDates()
+        {
+            DateHandler dh = new DateHandler(month, day, year);
+
+            for (int i = 0; i < 15; i++)
+            {
+                currentPageOfLines[i] = dh.GetNextLine();
+            }
+
+            yearFromDateHandler = dh.GetYear();
+        }
 
         private void CalculateNextDate(bool nextPage, bool previousPage)
         {
