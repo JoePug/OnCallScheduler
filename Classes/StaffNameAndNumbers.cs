@@ -12,26 +12,67 @@ namespace OnCallScheduler
 
         public int IndexOfLastUsed { get; set; } = 0;
 
+        public StaffNameAndNumbers()
+        {
+            //temp data
+            names.Add("Jamie Maher - (570)280-4194");
+            names.Add("Sandy O'Connell - (570)335-4419");
+            names.Add("Joe Pugliese - (908)635-4106");
+        }
+
         public void AddNewNameAndNumber(string name)
         {
             names.Add(name);    
         }
 
-        public void GetNextFifteenNames()
+        public string[] GetNextFifteenNames()
         {
+            string[] fifteenNames = new string[15];
+            for (int i = 0; i < 15; i++)
+            {
+                fifteenNames[i] = names[IndexOfLastUsed];
+                NextNameIndex();
+            }
             //returns array of string
+            return fifteenNames;
         }
 
-        public void GetPreviousFifteenNames()
+        public string[] GetPreviousFifteenNames()
         {
             //returns array of strings
             //start at the end and work your way up?
+            string[] fifteenNames = new string[15];
+            for (int i = 15; i > 0; i--)
+            {
+                fifteenNames[i - 1] = names[IndexOfLastUsed];
+                PreviousNameIndex();
+            }
+            return fifteenNames;    
+        }
+
+        public List<string> GetNameAndNumbersList()
+        {
+            return names;   
         }
 
         public int GetLenghtOfLongestLine()
         {
 
             return 0; //placeholder
+        }
+
+        private void NextNameIndex()
+        {
+            IndexOfLastUsed++;
+            if(IndexOfLastUsed ==  names.Count) 
+                IndexOfLastUsed = 0;
+        }
+
+        private void PreviousNameIndex()
+        {
+            IndexOfLastUsed--;
+            if (IndexOfLastUsed == - 1)
+                IndexOfLastUsed = names.Count - 1;
         }
     }
 }
