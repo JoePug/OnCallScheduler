@@ -14,7 +14,10 @@ namespace OnCallScheduler
         int currentStaff = 0;
         int yearFromDateHandler = 2025; // 2025 for now
         string[] currentPageOfLines = new string[15];
+        string[] currentPageOfNamesAndNumbers = new string[15];
         private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
+
+        private StaffNameAndNumbers staff = new StaffNameAndNumbers();
 
         public MainForm()
         {
@@ -27,7 +30,8 @@ namespace OnCallScheduler
             //check for first time and ask for data if it is
             // get startup month, day and year and staff that is the first on the page
 
-
+            staff.IndexOfLastUsed = currentStaff;
+            GetNewPageOfNamesAndNumbers(true);
             LoadDatesInSchedule(); //will probably happen last after all other checks and setup stuff
         }
 
@@ -36,11 +40,12 @@ namespace OnCallScheduler
             GetNewPageOfDates();
             displayListView.Items.Clear();
                         
-            foreach(string line in currentPageOfLines)
+            //foreach(string line in currentPageOfLines)
+            for(int i = 0; i < 15; i++)
             {
-                ListViewItem lvl = new ListViewItem(line);
+                ListViewItem lvl = new ListViewItem(currentPageOfLines[i]);
 
-                lvl.SubItems.Add("Joe Pugliese - (908)635-4106");
+                lvl.SubItems.Add(currentPageOfNamesAndNumbers[i]);
 
                 displayListView.Items.Add(lvl);
             }
@@ -60,6 +65,21 @@ namespace OnCallScheduler
            
         }        
 
+        private void GetNewPageOfNamesAndNumbers(bool forward)
+        {
+            if (forward)
+            {
+                staff.IndexOfLastUsed = currentStaff;
+                currentPageOfNamesAndNumbers = staff.GetNextFifteenNames();
+                currentStaff = staff.IndexOfLastUsed;
+            }
+            else
+            {
+                staff.IndexOfLastUsed = currentStaff;
+                currentPageOfNamesAndNumbers = staff.GetPreviousFifteenNames();
+                currentStaff = staff.IndexOfLastUsed;
+            }
+        }
 
         #region Buttons
 
@@ -67,6 +87,7 @@ namespace OnCallScheduler
         {
             //add 105 days
             CalculateNextDate(true, false);
+            GetNewPageOfNamesAndNumbers(true);
             LoadDatesInSchedule();
         }
 
@@ -74,6 +95,7 @@ namespace OnCallScheduler
         {
             //subtract 105 days
             CalculateNextDate(false, true);
+            GetNewPageOfNamesAndNumbers(false);
             LoadDatesInSchedule();
         }
 

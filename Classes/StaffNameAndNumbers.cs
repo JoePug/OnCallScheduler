@@ -15,9 +15,11 @@ namespace OnCallScheduler
         public StaffNameAndNumbers()
         {
             //temp data
-            names.Add("Jamie Maher - (570)280-4194");
-            names.Add("Sandy O'Connell - (570)335-4419");
-            names.Add("Joe Pugliese - (908)635-4106");
+            names.Add("1 Jamie Maher - (570)280-4194");
+            names.Add("2 Sandy O'Connell - (570)335-4419");
+            names.Add("3 Joe Pugliese - (908)635-4106");
+            //names.Add("4 test name");
+            //names.Add("5 Other Name");
         }
 
         public void AddNewNameAndNumber(string name)
@@ -29,7 +31,7 @@ namespace OnCallScheduler
         {
             string[] fifteenNames = new string[15];
             for (int i = 0; i < 15; i++)
-            {
+            {                
                 fifteenNames[i] = names[IndexOfLastUsed];
                 NextNameIndex();
             }
@@ -44,6 +46,7 @@ namespace OnCallScheduler
             string[] fifteenNames = new string[15];
             for (int i = 15; i > 0; i--)
             {
+                
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
                 PreviousNameIndex();
             }
@@ -71,7 +74,7 @@ namespace OnCallScheduler
         private void PreviousNameIndex()
         {
             IndexOfLastUsed--;
-            if (IndexOfLastUsed == - 1)
+            if (IndexOfLastUsed < 0)
                 IndexOfLastUsed = names.Count - 1;
         }
     }
