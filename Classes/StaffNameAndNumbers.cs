@@ -11,6 +11,7 @@ namespace OnCallScheduler
         List <string> names = new List<string>();
 
         public int IndexOfLastUsed { get; set; } = 0;
+        bool pagedForward = true;
 
         public StaffNameAndNumbers()
         {
@@ -18,7 +19,7 @@ namespace OnCallScheduler
             names.Add("1 Jamie Maher - (570)280-4194");
             names.Add("2 Sandy O'Connell - (570)335-4419");
             names.Add("3 Joe Pugliese - (908)635-4106");
-            //names.Add("4 test name");
+            names.Add("4 test name");
             //names.Add("5 Other Name");
         }
 
@@ -30,6 +31,14 @@ namespace OnCallScheduler
         public string[] GetNextFifteenNames()
         {
             string[] fifteenNames = new string[15];
+
+            if (pagedForward == false)
+            {
+                pagedForward = true;
+                //get new index - jump 16
+                IndexOfLastUsed = (IndexOfLastUsed + 16) % names.Count;
+            }
+            
             for (int i = 0; i < 15; i++)
             {                
                 fifteenNames[i] = names[IndexOfLastUsed];
@@ -44,24 +53,19 @@ namespace OnCallScheduler
             //returns array of strings
             //start at the end and work your way up?
             string[] fifteenNames = new string[15];
-            for (int i = 15; i > 0; i--)
+            if(pagedForward)
             {
-                
+                pagedForward = false;
+                //get new index - jump back 16
+                IndexOfLastUsed = ((IndexOfLastUsed + -16) % names.Count + names.Count) % names.Count;
+            }
+
+            for (int i = 15; i > 0; i--)
+            {                
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
                 PreviousNameIndex();
             }
             return fifteenNames;    
-        }
-
-        public List<string> GetNameAndNumbersList()
-        {
-            return names;   
-        }
-
-        public int GetLenghtOfLongestLine()
-        {
-
-            return 0; //placeholder
         }
 
         private void NextNameIndex()
@@ -76,6 +80,17 @@ namespace OnCallScheduler
             IndexOfLastUsed--;
             if (IndexOfLastUsed < 0)
                 IndexOfLastUsed = names.Count - 1;
+        }
+
+        public List<string> GetNameAndNumbersList()
+        {
+            return names;
+        }
+
+        public int GetLenghtOfLongestLine()
+        {
+
+            return 0; //placeholder
         }
     }
 }
