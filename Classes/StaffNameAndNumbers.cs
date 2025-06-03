@@ -19,7 +19,7 @@ namespace OnCallScheduler
             names.Add("1 Jamie Maher - (570)280-4194");
             names.Add("2 Sandy O'Connell - (570)335-4419");
             names.Add("3 Joe Pugliese - (908)635-4106");
-            names.Add("4 test name");
+            //names.Add("4 test name");
             //names.Add("5 Other Name");
         }
 
@@ -36,13 +36,15 @@ namespace OnCallScheduler
             {
                 pagedForward = true;
                 //get new index - jump 16
-                IndexOfLastUsed = (IndexOfLastUsed + 16) % names.Count;
+                //IndexOfLastUsed = (IndexOfLastUsed + 16) % names.Count;
+                CircularArrayTraversal(16);
             }
             
             for (int i = 0; i < 15; i++)
             {                
                 fifteenNames[i] = names[IndexOfLastUsed];
-                NextNameIndex();
+                //NextNameIndex();
+                CircularArrayTraversal(1);
             }
             //returns array of string
             return fifteenNames;
@@ -57,15 +59,31 @@ namespace OnCallScheduler
             {
                 pagedForward = false;
                 //get new index - jump back 16
-                IndexOfLastUsed = ((IndexOfLastUsed + -16) % names.Count + names.Count) % names.Count;
+                //IndexOfLastUsed = ((IndexOfLastUsed + -16) % names.Count + names.Count) % names.Count;
+                CircularArrayTraversal(-16);
             }
 
             for (int i = 15; i > 0; i--)
             {                
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
-                PreviousNameIndex();
+                //PreviousNameIndex();
+                CircularArrayTraversal(-1);
             }
             return fifteenNames;    
+        }
+
+        private void CircularArrayTraversal(int jump)
+        {
+            if (jump < 0)
+            {
+                //traverse backwards
+                IndexOfLastUsed = ((IndexOfLastUsed + jump) % names.Count + names.Count) % names.Count;
+            }
+            else
+            {
+                //traverse forward
+                IndexOfLastUsed = (IndexOfLastUsed + jump) % names.Count;
+            }
         }
 
         private void NextNameIndex()
