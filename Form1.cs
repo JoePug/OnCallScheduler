@@ -32,10 +32,10 @@ namespace OnCallScheduler
 
             staff.IndexOfLastUsed = currentStaff;
             GetNewPageOfNamesAndNumbers(true);
-            LoadDatesInSchedule(); //will probably happen last after all other checks and setup stuff
+            LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
         }
 
-        private void LoadDatesInSchedule()
+        private void LoadDatesIntoSchedule() //rewrite as it's going to pull from Sites instead and grab what it needs
         {            
             GetNewPageOfDates();
             displayListView.Items.Clear();
@@ -50,6 +50,7 @@ namespace OnCallScheduler
                 displayListView.Items.Add(lvl);
             }
 
+            //moved to Sites - call with GetYear - Returns a string
             if(yearFromDateHandler > year)
             {
                 yearDisplayLabel.Text = "Year: " + year.ToString() + " - " + yearFromDateHandler.ToString();
