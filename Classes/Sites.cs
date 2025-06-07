@@ -13,7 +13,7 @@ namespace OnCallScheduler
         //responsible for managing the current site and all it's data and feeds it to the main form
         //main form should only get it's data in the form it needs it to be
 
-        public string SiteName { get; set; } = string.Empty;
+        public string SiteName { get; set; } = "Carbondale/Dunmore";
         public int Year { get; set; } = 2025;
         public int Month { get; set; } = 4;
         public int Day { get; set; } = 4;
@@ -23,6 +23,8 @@ namespace OnCallScheduler
         public string[] currentPageOfNamesAndNumbers { get; set; } = new string[15];
         private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
 
+
+        private StaffNameAndNumbers staff = new StaffNameAndNumbers();
         /*
         int year = 2025;
         int month = 4;
@@ -33,7 +35,7 @@ namespace OnCallScheduler
         string[] currentPageOfNamesAndNumbers = new string[15];
         private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
 
-        private StaffNameAndNumbers staff = new StaffNameAndNumbers();
+        
         */
 
         #region Public Methods
@@ -43,7 +45,8 @@ namespace OnCallScheduler
             //add 105 days
             CalculateNextDate(true, false);
             GetNewPageOfNamesAndNumbers(true);
-            LoadDatesInSchedule();
+            //LoadDatesInSchedule();
+            //return 
         }
 
         public void PreviousSchedule()
@@ -51,23 +54,27 @@ namespace OnCallScheduler
             //subtract 105 days
             CalculateNextDate(false, true);
             GetNewPageOfNamesAndNumbers(false);
-            LoadDatesInSchedule();
+            //LoadDatesInSchedule();
         }
 
         public string GetYear()
         {
-            if (yearFromDateHandler > year)
+            string s = string.Empty;
+
+            if (yearFromDateHandler > Year)
             {
-                yearDisplayLabel.Text = "Year: " + year.ToString() + " - " + yearFromDateHandler.ToString();
+                s = Year.ToString() + " - " + yearFromDateHandler.ToString();
             }
-            else if (yearFromDateHandler < year)
+            else if (yearFromDateHandler < Year)
             {
-                yearDisplayLabel.Text = "Year: " + yearFromDateHandler.ToString() + " - " + year.ToString();
+                s = yearFromDateHandler.ToString() + " - " + Year.ToString();
             }
             else
             {
-                yearDisplayLabel.Text = "Year: " + year.ToString();
+                s = Year.ToString();
             }
+
+            return s;
         }
 
         public void LoadData()
@@ -95,21 +102,21 @@ namespace OnCallScheduler
         {
             if (forward)
             {
-                staff.IndexOfLastUsed = currentStaff;
+                staff.IndexOfLastUsed = CurrentStaff;
                 currentPageOfNamesAndNumbers = staff.GetNextFifteenNames();
-                currentStaff = staff.IndexOfLastUsed;
+                CurrentStaff = staff.IndexOfLastUsed;
             }
             else
             {
-                staff.IndexOfLastUsed = currentStaff;
+                staff.IndexOfLastUsed = CurrentStaff;
                 currentPageOfNamesAndNumbers = staff.GetPreviousFifteenNames();
-                currentStaff = staff.IndexOfLastUsed;
+                CurrentStaff = staff.IndexOfLastUsed;
             }
         }
 
         private void GetNewPageOfDates()
         {
-            DateHandler dh = new DateHandler(month, day, year);
+            DateHandler dh = new DateHandler(Month, Day, Year);
 
             for (int i = 0; i < 15; i++)
             {
@@ -121,7 +128,7 @@ namespace OnCallScheduler
 
         private void CalculateNextDate(bool nextPage, bool previousPage)
         {
-            DateTime date = new DateTime(year, month, day);
+            DateTime date = new DateTime(Year, Month, Day);
 
             if (nextPage)
             {
@@ -132,9 +139,9 @@ namespace OnCallScheduler
                 date = date.AddDays(-daysPerPage);
             }
 
-            year = date.Year;
-            month = date.Month;
-            day = date.Day;
+            Year = date.Year;
+            Month = date.Month;
+            Day = date.Day;
         }
 
         #endregion
