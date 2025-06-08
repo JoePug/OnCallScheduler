@@ -18,35 +18,27 @@ namespace OnCallScheduler
         public int Month { get; set; } = 4;
         public int Day { get; set; } = 4;
         public int CurrentStaff { get; set; } = 0;
-        public int yearFromDateHandler { get; set; } = 2025; // 2025 for now
-        public string[] currentPageOfLines { get; set; } = new string[15];
-        public string[] currentPageOfNamesAndNumbers { get; set; } = new string[15];
+        public int YearFromDateHandler { get; set; } = 2025; // 2025 for now
+        public string[] CurrentPageOfLines { get; set; } = new string[15];
+        public string[] CurrentPageOfNamesAndNumbers { get; set; } = new string[15];
         private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
-
 
         private StaffNameAndNumbers staff = new StaffNameAndNumbers();
-        /*
-        int year = 2025;
-        int month = 4;
-        int day = 4;
-        int currentStaff = 0;
-        int yearFromDateHandler = 2025; // 2025 for now
-        string[] currentPageOfLines = new string[15];
-        string[] currentPageOfNamesAndNumbers = new string[15];
-        private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
-
-        
-        */
 
         #region Public Methods
+
+        public void CurrentSchedule()
+        {
+            GetNewPageOfDates();
+            GetNewPageOfNamesAndNumbers(true);
+        }
 
         public void NextSchedule()
         {
             //add 105 days
             CalculateNextDate(true, false);
             GetNewPageOfNamesAndNumbers(true);
-            //LoadDatesInSchedule();
-            //return 
+            GetNewPageOfDates(); 
         }
 
         public void PreviousSchedule()
@@ -54,20 +46,20 @@ namespace OnCallScheduler
             //subtract 105 days
             CalculateNextDate(false, true);
             GetNewPageOfNamesAndNumbers(false);
-            //LoadDatesInSchedule();
+            GetNewPageOfDates();
         }
 
         public string GetYear()
         {
             string s = string.Empty;
 
-            if (yearFromDateHandler > Year)
+            if (YearFromDateHandler > Year)
             {
-                s = Year.ToString() + " - " + yearFromDateHandler.ToString();
+                s = Year.ToString() + " - " + YearFromDateHandler.ToString();
             }
-            else if (yearFromDateHandler < Year)
+            else if (YearFromDateHandler < Year)
             {
-                s = yearFromDateHandler.ToString() + " - " + Year.ToString();
+                s = YearFromDateHandler.ToString() + " - " + Year.ToString();
             }
             else
             {
@@ -103,13 +95,13 @@ namespace OnCallScheduler
             if (forward)
             {
                 staff.IndexOfLastUsed = CurrentStaff;
-                currentPageOfNamesAndNumbers = staff.GetNextFifteenNames();
+                CurrentPageOfNamesAndNumbers = staff.GetNextFifteenNames();
                 CurrentStaff = staff.IndexOfLastUsed;
             }
             else
             {
                 staff.IndexOfLastUsed = CurrentStaff;
-                currentPageOfNamesAndNumbers = staff.GetPreviousFifteenNames();
+                CurrentPageOfNamesAndNumbers = staff.GetPreviousFifteenNames();
                 CurrentStaff = staff.IndexOfLastUsed;
             }
         }
@@ -120,10 +112,10 @@ namespace OnCallScheduler
 
             for (int i = 0; i < 15; i++)
             {
-                currentPageOfLines[i] = dh.GetNextLine();
+                CurrentPageOfLines[i] = dh.GetNextLine();
             }
 
-            yearFromDateHandler = dh.GetYear();
+            YearFromDateHandler = dh.GetYear();
         }
 
         private void CalculateNextDate(bool nextPage, bool previousPage)
