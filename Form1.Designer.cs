@@ -134,6 +134,7 @@
             siteComboBox.Name = "siteComboBox";
             siteComboBox.Size = new Size(263, 23);
             siteComboBox.TabIndex = 5;
+            siteComboBox.SelectedIndexChanged += siteComboBox_SelectedIndexChanged;
             // 
             // printButton
             // 

@@ -83,6 +83,8 @@ namespace OnCallScheduler
         {
             //will check for data files and return false if it finds them
 
+            //Not sure I'm keeping this here. Usually just check for a file
+
             return true;    
         }
 

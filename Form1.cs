@@ -9,6 +9,7 @@ namespace OnCallScheduler
         // You also need a pointer to know which staff is the first one on each page
 
         private Sites site = new Sites();
+        private List<Sites> allSites = new List<Sites>();
 
         public MainForm()
         {
@@ -26,10 +27,10 @@ namespace OnCallScheduler
         }
 
         private void LoadDatesIntoSchedule() //rewrite as it's going to pull from Sites instead and grab what it needs
-        {            
+        {
             displayListView.Items.Clear();
-                        
-            for(int i = 0; i < 15; i++)
+
+            for (int i = 0; i < 15; i++)
             {
                 ListViewItem lvl = new ListViewItem(site.CurrentPageOfLines[i]);
 
@@ -38,7 +39,7 @@ namespace OnCallScheduler
                 displayListView.Items.Add(lvl);
             }
 
-            yearDisplayLabel.Text = "Year: " + site.GetYear();           
+            yearDisplayLabel.Text = "Year: " + site.GetYear();
         }
 
         #region Buttons
@@ -74,6 +75,15 @@ namespace OnCallScheduler
         }
 
         #endregion
-      
+
+        private void siteComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (siteComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+            site = allSites[siteComboBox.SelectedIndex]; // Untested
+            LoadDatesIntoSchedule();
+        }
     }
 }
