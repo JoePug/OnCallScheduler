@@ -24,6 +24,8 @@ namespace OnCallScheduler
 
             site.CurrentSchedule(); //only use these if there is actual data otherwise skip
             LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
+            LoadInfoIntoStaff(); //will have to seperate data
+
         }
 
         private void LoadDatesIntoSchedule() //rewrite as it's going to pull from Sites instead and grab what it needs
@@ -40,6 +42,18 @@ namespace OnCallScheduler
             }
 
             yearDisplayLabel.Text = "Year: " + site.GetYear();
+        }
+
+        private void LoadInfoIntoStaff()
+        {
+            staffListView.Items.Clear();
+
+            foreach(string text in site.GetNamesAndNumbers())
+            {
+                ListViewItem lvl = new ListViewItem(text); //split the data
+                lvl.SubItems.Add(text); //split the data
+                staffListView.Items.Add(lvl);
+            }
         }
 
         #region Buttons
@@ -80,6 +94,7 @@ namespace OnCallScheduler
         {
             if (siteComboBox.SelectedIndex == -1)
             {
+                displayListView.Items.Clear(); //see how this works out
                 return;
             }
             site = allSites[siteComboBox.SelectedIndex]; // Untested

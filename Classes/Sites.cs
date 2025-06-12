@@ -69,6 +69,11 @@ namespace OnCallScheduler
             return s;
         }
 
+        public List<string> GetNamesAndNumbers()
+        {
+            return staff.GetNameAndNumbersList();
+        }
+
         public void LoadData()
         {
             // will pull data from files and load them in
