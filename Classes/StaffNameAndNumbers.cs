@@ -8,7 +8,7 @@ namespace OnCallScheduler
 { 
     class StaffNameAndNumbers
     {
-        List <string> names = new List<string>();
+        List<(string, string)> names = new List<(string, string)>();
 
         public int IndexOfLastUsed { get; set; } = 0;
         bool pagedForward = true;
@@ -16,21 +16,19 @@ namespace OnCallScheduler
         public StaffNameAndNumbers()
         {
             //temp data
-            names.Add("1 Jamie Maher - (570)280-4194");
-            names.Add("2 Sandy O'Connell - (570)335-4419");
-            names.Add("3 Joe Pugliese - (908)635-4106");
-            //names.Add("4 test name");
-            //names.Add("5 Other Name");
+            names.Add(("Jamie Maher", "(570)280-4194"));
+            names.Add(("Sandy O'Connell", "(570)335-4419"));
+            names.Add(("Joe Pugliese", "(908)635-4106"));
         }
 
-        public void AddNewNameAndNumber(string name)
+        public void AddNewNameAndNumber((string, string) name)
         {
             names.Add(name);    
         }
 
-        public string[] GetNextFifteenNames()
+        public (string, string)[] GetNextFifteenNames()
         {
-            string[] fifteenNames = new string[15];
+            (string, string)[] fifteenNames = new (string, string)[15];
 
             if (pagedForward == false)
             {
@@ -43,19 +41,18 @@ namespace OnCallScheduler
             for (int i = 0; i < 15; i++)
             {                
                 fifteenNames[i] = names[IndexOfLastUsed];
-                //NextNameIndex();
                 CircularArrayTraversal(1);
             }
             //returns array of string
             return fifteenNames;
         }
 
-        public string[] GetPreviousFifteenNames()
+        public (string, string)[] GetPreviousFifteenNames()
         {
             //returns array of strings
             //start at the end and work your way up?
-            string[] fifteenNames = new string[15];
-            if(pagedForward)
+            (string, string)[] fifteenNames = new (string, string)[15];
+            if (pagedForward)
             {
                 pagedForward = false;
                 //get new index - jump back 16
@@ -66,7 +63,6 @@ namespace OnCallScheduler
             for (int i = 15; i > 0; i--)
             {                
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
-                //PreviousNameIndex();
                 CircularArrayTraversal(-1);
             }
             return fifteenNames;    
@@ -86,21 +82,7 @@ namespace OnCallScheduler
             }
         }
 
-        private void NextNameIndex()
-        {
-            IndexOfLastUsed++;
-            if(IndexOfLastUsed ==  names.Count) 
-                IndexOfLastUsed = 0;
-        }
-
-        private void PreviousNameIndex()
-        {
-            IndexOfLastUsed--;
-            if (IndexOfLastUsed < 0)
-                IndexOfLastUsed = names.Count - 1;
-        }
-
-        public List<string> GetNameAndNumbersList()
+        public List<(string, string)> GetNameAndNumbersList()
         {
             return names;
         }

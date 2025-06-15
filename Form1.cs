@@ -11,6 +11,8 @@ namespace OnCallScheduler
         private Sites site = new Sites();
         private List<Sites> allSites = new List<Sites>();
 
+        #region Startup Methods
+
         public MainForm()
         {
             InitializeComponent();
@@ -28,6 +30,10 @@ namespace OnCallScheduler
 
         }
 
+        #endregion
+
+        #region Main Methods
+
         private void LoadDatesIntoSchedule() //rewrite as it's going to pull from Sites instead and grab what it needs
         {
             displayListView.Items.Clear();
@@ -36,7 +42,7 @@ namespace OnCallScheduler
             {
                 ListViewItem lvl = new ListViewItem(site.CurrentPageOfLines[i]);
 
-                lvl.SubItems.Add(site.CurrentPageOfNamesAndNumbers[i]);
+                lvl.SubItems.Add(site.CurrentPageOfNamesAndNumbers[i].Item1);
 
                 displayListView.Items.Add(lvl);
             }
@@ -48,13 +54,15 @@ namespace OnCallScheduler
         {
             staffListView.Items.Clear();
 
-            foreach(string text in site.GetNamesAndNumbers())
+            foreach((string, string) text in site.GetNamesAndNumbers())
             {
-                ListViewItem lvl = new ListViewItem(text); //split the data
-                lvl.SubItems.Add(text); //split the data
+                ListViewItem lvl = new ListViewItem(text.Item1); //split the data
+                lvl.SubItems.Add(text.Item2); //split the data
                 staffListView.Items.Add(lvl);
             }
         }
+
+        #endregion
 
         #region Buttons
 

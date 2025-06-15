@@ -20,7 +20,7 @@ namespace OnCallScheduler
         public int CurrentStaff { get; set; } = 0;
         public int YearFromDateHandler { get; set; } = 2025; // 2025 for now
         public string[] CurrentPageOfLines { get; set; } = new string[15];
-        public string[] CurrentPageOfNamesAndNumbers { get; set; } = new string[15];
+        public (string, string)[] CurrentPageOfNamesAndNumbers { get; set; } = new (string, string)[15];
         private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
 
         private StaffNameAndNumbers staff = new StaffNameAndNumbers();
@@ -69,7 +69,7 @@ namespace OnCallScheduler
             return s;
         }
 
-        public List<string> GetNamesAndNumbers()
+        public List<(string, string)> GetNamesAndNumbers()
         {
             return staff.GetNameAndNumbersList();
         }
