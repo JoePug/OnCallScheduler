@@ -23,18 +23,15 @@ namespace OnCallScheduler
         {
             //check for first time and ask for data if it is
             // get startup month, day and year and staff that is the first on the page
-
-            site.CurrentSchedule(); //only use these if there is actual data otherwise skip
-            LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
-            LoadInfoIntoStaff(); //will have to seperate data
-
+            allSites.Add(site);// just to have something there for now. Fix later when you move test data to it's own class.
+            LoadSitesIntoSiteBox();
         }
 
         #endregion
 
         #region Main Methods
 
-        private void LoadDatesIntoSchedule() //rewrite as it's going to pull from Sites instead and grab what it needs
+        private void LoadDatesIntoSchedule()
         {
             displayListView.Items.Clear();
 
@@ -59,6 +56,16 @@ namespace OnCallScheduler
                 ListViewItem lvl = new ListViewItem(text.Item1); //split the data
                 lvl.SubItems.Add(text.Item2); //split the data
                 staffListView.Items.Add(lvl);
+            }
+        }
+
+        private void LoadSitesIntoSiteBox()
+        {
+            siteComboBox.Items.Clear();
+            siteComboBox.SelectedIndex = -1;
+            foreach(Sites _site in allSites)
+            {
+                siteComboBox.Items.Add(_site.SiteName);
             }
         }
 
@@ -103,9 +110,14 @@ namespace OnCallScheduler
             if (siteComboBox.SelectedIndex == -1)
             {
                 displayListView.Items.Clear(); //see how this works out
+                staffListView.Items.Clear();
                 return;
             }
             site = allSites[siteComboBox.SelectedIndex]; // Untested
+
+            site.CurrentSchedule(); //only use these if there is actual data otherwise skip
+            LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
+            LoadInfoIntoStaff();    //will have to seperate data
             LoadDatesIntoSchedule();
         }
     }
