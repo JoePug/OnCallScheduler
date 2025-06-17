@@ -52,6 +52,12 @@
             editSiteButton = new Button();
             addSiteButton = new Button();
             yearDisplayLabel = new Label();
+            monthTextBox = new TextBox();
+            dayTextBox = new TextBox();
+            yearTextBox = new TextBox();
+            yearLabel = new Label();
+            dayLabel = new Label();
+            monthLabel = new Label();
             SuspendLayout();
             // 
             // displayListView
@@ -81,7 +87,7 @@
             // 
             staffListView.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4 });
             staffListView.GridLines = true;
-            staffListView.Location = new Point(395, 193);
+            staffListView.Location = new Point(395, 208);
             staffListView.Margin = new Padding(3, 2, 3, 2);
             staffListView.Name = "staffListView";
             staffListView.Size = new Size(355, 133);
@@ -111,7 +117,7 @@
             // staffLabel
             // 
             staffLabel.AutoSize = true;
-            staffLabel.Location = new Point(541, 169);
+            staffLabel.Location = new Point(541, 184);
             staffLabel.Name = "staffLabel";
             staffLabel.Size = new Size(31, 15);
             staffLabel.TabIndex = 3;
@@ -120,7 +126,7 @@
             // siteLabel
             // 
             siteLabel.AutoSize = true;
-            siteLabel.Location = new Point(572, 27);
+            siteLabel.Location = new Point(583, 27);
             siteLabel.Name = "siteLabel";
             siteLabel.Size = new Size(26, 15);
             siteLabel.TabIndex = 4;
@@ -129,7 +135,7 @@
             // siteComboBox
             // 
             siteComboBox.FormattingEnabled = true;
-            siteComboBox.Location = new Point(470, 59);
+            siteComboBox.Location = new Point(470, 111);
             siteComboBox.Margin = new Padding(3, 2, 3, 2);
             siteComboBox.Name = "siteComboBox";
             siteComboBox.Size = new Size(263, 23);
@@ -181,7 +187,7 @@
             // 
             // addStaffButton
             // 
-            addStaffButton.Location = new Point(417, 337);
+            addStaffButton.Location = new Point(417, 352);
             addStaffButton.Margin = new Padding(3, 2, 3, 2);
             addStaffButton.Name = "addStaffButton";
             addStaffButton.Size = new Size(88, 30);
@@ -191,7 +197,7 @@
             // 
             // editStaffButton
             // 
-            editStaffButton.Location = new Point(532, 337);
+            editStaffButton.Location = new Point(532, 352);
             editStaffButton.Margin = new Padding(3, 2, 3, 2);
             editStaffButton.Name = "editStaffButton";
             editStaffButton.Size = new Size(88, 30);
@@ -201,7 +207,7 @@
             // 
             // deleteStaffButton
             // 
-            deleteStaffButton.Location = new Point(649, 337);
+            deleteStaffButton.Location = new Point(649, 352);
             deleteStaffButton.Margin = new Padding(3, 2, 3, 2);
             deleteStaffButton.Name = "deleteStaffButton";
             deleteStaffButton.Size = new Size(88, 30);
@@ -212,7 +218,7 @@
             // sortLabel
             // 
             sortLabel.AutoSize = true;
-            sortLabel.Location = new Point(774, 200);
+            sortLabel.Location = new Point(774, 215);
             sortLabel.Name = "sortLabel";
             sortLabel.Size = new Size(28, 15);
             sortLabel.TabIndex = 15;
@@ -220,7 +226,7 @@
             // 
             // sortUpButton
             // 
-            sortUpButton.Location = new Point(765, 225);
+            sortUpButton.Location = new Point(765, 240);
             sortUpButton.Margin = new Padding(3, 2, 3, 2);
             sortUpButton.Name = "sortUpButton";
             sortUpButton.Size = new Size(53, 30);
@@ -230,7 +236,7 @@
             // 
             // sortDownButton
             // 
-            sortDownButton.Location = new Point(765, 269);
+            sortDownButton.Location = new Point(765, 284);
             sortDownButton.Margin = new Padding(3, 2, 3, 2);
             sortDownButton.Name = "sortDownButton";
             sortDownButton.Size = new Size(53, 30);
@@ -240,33 +246,36 @@
             // 
             // deleteSiteButton
             // 
-            deleteSiteButton.Location = new Point(671, 96);
+            deleteSiteButton.Location = new Point(671, 148);
             deleteSiteButton.Margin = new Padding(3, 2, 3, 2);
             deleteSiteButton.Name = "deleteSiteButton";
             deleteSiteButton.Size = new Size(61, 22);
             deleteSiteButton.TabIndex = 20;
             deleteSiteButton.Text = "Delete";
             deleteSiteButton.UseVisualStyleBackColor = true;
+            deleteSiteButton.Click += deleteSiteButton_Click;
             // 
             // editSiteButton
             // 
-            editSiteButton.Location = new Point(572, 96);
+            editSiteButton.Location = new Point(572, 148);
             editSiteButton.Margin = new Padding(3, 2, 3, 2);
             editSiteButton.Name = "editSiteButton";
             editSiteButton.Size = new Size(61, 23);
             editSiteButton.TabIndex = 19;
             editSiteButton.Text = "Edit";
             editSiteButton.UseVisualStyleBackColor = true;
+            editSiteButton.Click += editSiteButton_Click;
             // 
             // addSiteButton
             // 
-            addSiteButton.Location = new Point(475, 96);
+            addSiteButton.Location = new Point(475, 148);
             addSiteButton.Margin = new Padding(3, 2, 3, 2);
             addSiteButton.Name = "addSiteButton";
             addSiteButton.Size = new Size(61, 23);
             addSiteButton.TabIndex = 18;
             addSiteButton.Text = "Add";
             addSiteButton.UseVisualStyleBackColor = true;
+            addSiteButton.Click += addSiteButton_Click;
             // 
             // yearDisplayLabel
             // 
@@ -277,11 +286,65 @@
             yearDisplayLabel.TabIndex = 21;
             yearDisplayLabel.Text = "Year:";
             // 
+            // monthTextBox
+            // 
+            monthTextBox.Location = new Point(484, 73);
+            monthTextBox.Name = "monthTextBox";
+            monthTextBox.Size = new Size(68, 23);
+            monthTextBox.TabIndex = 22;
+            // 
+            // dayTextBox
+            // 
+            dayTextBox.Location = new Point(565, 73);
+            dayTextBox.Name = "dayTextBox";
+            dayTextBox.Size = new Size(68, 23);
+            dayTextBox.TabIndex = 23;
+            // 
+            // yearTextBox
+            // 
+            yearTextBox.Location = new Point(649, 73);
+            yearTextBox.Name = "yearTextBox";
+            yearTextBox.Size = new Size(68, 23);
+            yearTextBox.TabIndex = 24;
+            // 
+            // yearLabel
+            // 
+            yearLabel.AutoSize = true;
+            yearLabel.Location = new Point(667, 55);
+            yearLabel.Name = "yearLabel";
+            yearLabel.Size = new Size(29, 15);
+            yearLabel.TabIndex = 25;
+            yearLabel.Text = "Year";
+            // 
+            // dayLabel
+            // 
+            dayLabel.AutoSize = true;
+            dayLabel.Location = new Point(584, 55);
+            dayLabel.Name = "dayLabel";
+            dayLabel.Size = new Size(27, 15);
+            dayLabel.TabIndex = 26;
+            dayLabel.Text = "Day";
+            // 
+            // monthLabel
+            // 
+            monthLabel.AutoSize = true;
+            monthLabel.Location = new Point(496, 55);
+            monthLabel.Name = "monthLabel";
+            monthLabel.Size = new Size(43, 15);
+            monthLabel.TabIndex = 27;
+            monthLabel.Text = "Month";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(835, 471);
+            Controls.Add(monthLabel);
+            Controls.Add(dayLabel);
+            Controls.Add(yearLabel);
+            Controls.Add(yearTextBox);
+            Controls.Add(dayTextBox);
+            Controls.Add(monthTextBox);
             Controls.Add(yearDisplayLabel);
             Controls.Add(deleteSiteButton);
             Controls.Add(editSiteButton);
@@ -338,5 +401,11 @@
         private Button editSiteButton;
         private Button addSiteButton;
         private Label yearDisplayLabel;
+        private TextBox monthTextBox;
+        private TextBox dayTextBox;
+        private TextBox yearTextBox;
+        private Label yearLabel;
+        private Label dayLabel;
+        private Label monthLabel;
     }
 }

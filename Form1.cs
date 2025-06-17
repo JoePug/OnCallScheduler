@@ -1,6 +1,8 @@
 
 
 
+using System.Xml.Linq;
+
 namespace OnCallScheduler
 {
     public partial class MainForm : Form
@@ -45,13 +47,15 @@ namespace OnCallScheduler
             }
 
             yearDisplayLabel.Text = "Year: " + site.GetYear();
+
+            LoadDateIntoTextBoxes(); //keep it????????????
         }
 
         private void LoadInfoIntoStaff()
         {
             staffListView.Items.Clear();
 
-            foreach((string, string) text in site.GetNamesAndNumbers())
+            foreach ((string, string) text in site.GetNamesAndNumbers())
             {
                 ListViewItem lvl = new ListViewItem(text.Item1); //split the data
                 lvl.SubItems.Add(text.Item2); //split the data
@@ -63,10 +67,17 @@ namespace OnCallScheduler
         {
             siteComboBox.Items.Clear();
             siteComboBox.SelectedIndex = -1;
-            foreach(Sites _site in allSites)
+            foreach (Sites _site in allSites)
             {
                 siteComboBox.Items.Add(_site.SiteName);
             }
+        }
+
+        private void LoadDateIntoTextBoxes()
+        {
+            monthTextBox.Text = site.Month.ToString();
+            dayTextBox.Text = site.Day.ToString();
+            yearTextBox.Text = site.Year.ToString();
         }
 
         #endregion
@@ -98,6 +109,23 @@ namespace OnCallScheduler
 
         #region Other Methods
 
+        private void ClearAndResetControls()
+        {
+            displayListView.Items.Clear(); //see how this works out
+            staffListView.Items.Clear();
+            monthTextBox.Text = "";
+            dayTextBox.Text = "";
+            yearTextBox.Text = "";
+        }
+
+        private bool TestForValidDates()
+        {
+            bool validDates = false;
+            //todo make sure date textboxes have valid numbers in them before trying to use them 
+
+            return validDates;
+        }
+
         private void QuitApplication()
         {
             Application.Exit();
@@ -109,16 +137,53 @@ namespace OnCallScheduler
         {
             if (siteComboBox.SelectedIndex == -1)
             {
-                displayListView.Items.Clear(); //see how this works out
-                staffListView.Items.Clear();
+                ClearAndResetControls();  
                 return;
             }
             site = allSites[siteComboBox.SelectedIndex]; // Untested
 
+            LoadDateIntoTextBoxes();
             site.CurrentSchedule(); //only use these if there is actual data otherwise skip
             LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
             LoadInfoIntoStaff();    //will have to seperate data
             LoadDatesIntoSchedule();
+        }
+
+        private void addSiteButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to create a site named: \n\n\t\t" + siteComboBox.Text,
+                                    "Create Site???", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No) return;
+
+            if (TestForValidDates() == false)
+            {
+                MessageBox.Show("Your starting dates are not valid.");
+                return;
+            }
+
+            Sites _site = new Sites();
+            _site.SiteName = siteComboBox.Text;            
+            
+            //int.Parse should be fine as it will of been tested already
+            _site.Day = int.Parse(dayTextBox.Text);
+            _site.Month = int.Parse(monthTextBox.Text);
+            _site.Year = int.Parse(yearTextBox.Text);
+
+            allSites.Add(_site);
+
+            siteComboBox.Text = "";
+            ClearAndResetControls();
+            LoadSitesIntoSiteBox();
+        }
+
+        private void editSiteButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteSiteButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

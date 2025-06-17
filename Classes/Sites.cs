@@ -74,16 +74,6 @@ namespace OnCallScheduler
             return staff.GetNameAndNumbersList();
         }
 
-        public void LoadData()
-        {
-            // will pull data from files and load them in
-        }
-
-        public void SaveData()
-        {
-            // will save data to files
-        }
-
         public bool FirstTimeCheck()
         {
             //will check for data files and return false if it finds them
