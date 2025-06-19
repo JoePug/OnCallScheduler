@@ -1,7 +1,7 @@
 
 
 
-using System.Xml.Linq;
+//using System.Xml.Linq;
 
 namespace OnCallScheduler
 {
@@ -121,7 +121,25 @@ namespace OnCallScheduler
         private bool TestForValidDates()
         {
             bool validDates = false;
-            //todo make sure date textboxes have valid numbers in them before trying to use them 
+
+            try
+            {
+                int a = int.Parse(monthTextBox.Text);
+                a = int.Parse(dayTextBox.Text);
+                a = int.Parse(yearTextBox.Text);
+            }
+            catch (FormatException)
+            {
+                validDates = false;
+                return validDates;
+            }
+
+            string input = yearTextBox.Text + "-" + monthTextBox.Text + "-" + dayTextBox.Text;
+            DateTime result; //throw away
+
+            validDates = DateTime.TryParse(input, out result);
+
+            if(int.Parse(yearTextBox.Text) < 2020) validDates = false;
 
             return validDates;
         }

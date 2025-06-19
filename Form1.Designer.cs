@@ -289,6 +289,7 @@
             // monthTextBox
             // 
             monthTextBox.Location = new Point(484, 73);
+            monthTextBox.MaxLength = 2;
             monthTextBox.Name = "monthTextBox";
             monthTextBox.Size = new Size(68, 23);
             monthTextBox.TabIndex = 22;
@@ -296,6 +297,7 @@
             // dayTextBox
             // 
             dayTextBox.Location = new Point(565, 73);
+            dayTextBox.MaxLength = 2;
             dayTextBox.Name = "dayTextBox";
             dayTextBox.Size = new Size(68, 23);
             dayTextBox.TabIndex = 23;
@@ -303,6 +305,7 @@
             // yearTextBox
             // 
             yearTextBox.Location = new Point(649, 73);
+            yearTextBox.MaxLength = 4;
             yearTextBox.Name = "yearTextBox";
             yearTextBox.Size = new Size(68, 23);
             yearTextBox.TabIndex = 24;
@@ -310,11 +313,11 @@
             // yearLabel
             // 
             yearLabel.AutoSize = true;
-            yearLabel.Location = new Point(667, 55);
+            yearLabel.Location = new Point(651, 55);
             yearLabel.Name = "yearLabel";
-            yearLabel.Size = new Size(29, 15);
+            yearLabel.Size = new Size(64, 15);
             yearLabel.TabIndex = 25;
-            yearLabel.Text = "Year";
+            yearLabel.Text = "Year (yyyy)";
             // 
             // dayLabel
             // 
@@ -330,9 +333,9 @@
             monthLabel.AutoSize = true;
             monthLabel.Location = new Point(496, 55);
             monthLabel.Name = "monthLabel";
-            monthLabel.Size = new Size(43, 15);
+            monthLabel.Size = new Size(46, 15);
             monthLabel.TabIndex = 27;
-            monthLabel.Text = "Month";
+            monthLabel.Text = "Month ";
             // 
             // MainForm
             // 
