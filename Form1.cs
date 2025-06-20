@@ -116,6 +116,8 @@ namespace OnCallScheduler
             monthTextBox.Text = "";
             dayTextBox.Text = "";
             yearTextBox.Text = "";
+            siteComboBox.SelectedIndex = -1;
+            siteComboBox.Text = "";
         }
 
         private bool TestForValidDates()
@@ -169,6 +171,8 @@ namespace OnCallScheduler
 
         private void addSiteButton_Click(object sender, EventArgs e)
         {
+            if (siteComboBox.Text == string.Empty) return;
+
             DialogResult result = MessageBox.Show("Are you sure you want to create a site named: \n\n\t\t" + siteComboBox.Text,
                                     "Create Site???", MessageBoxButtons.YesNo);
             if (result == DialogResult.No) return;
@@ -197,11 +201,23 @@ namespace OnCallScheduler
         private void editSiteButton_Click(object sender, EventArgs e)
         {
 
+            ClearAndResetControls();
         }
 
         private void deleteSiteButton_Click(object sender, EventArgs e)
         {
+            if (siteComboBox.SelectedIndex == -1)
+            {
+                return;
+            }
+            int i = siteComboBox.SelectedIndex;
+            DialogResult result = MessageBox.Show("Are you sure you want to delete the site named: \n\n\t\t" + allSites[i].SiteName,
+                                    "Delete Site???", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No) return;
 
+            allSites.RemoveAt(i);
+            siteComboBox.Items.RemoveAt(i);
+            ClearAndResetControls();
         }
     }
 }
