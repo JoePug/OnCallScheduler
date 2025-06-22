@@ -12,6 +12,7 @@ namespace OnCallScheduler
 
         private Sites site = new Sites();
         private List<Sites> allSites = new List<Sites>();
+        private int selectedSiteIndex = -1;
 
         #region Startup Methods
 
@@ -80,6 +81,24 @@ namespace OnCallScheduler
             yearTextBox.Text = site.Year.ToString();
         }
 
+        private void siteComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (siteComboBox.SelectedIndex == -1)
+            {
+                ClearAndResetControls();
+                return;
+            }
+
+            selectedSiteIndex = siteComboBox.SelectedIndex;
+            site = allSites[selectedSiteIndex];
+
+            LoadDateIntoTextBoxes();
+            site.CurrentSchedule(); //only use these if there is actual data otherwise skip
+            LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
+            LoadInfoIntoStaff();    //will have to seperate data
+            LoadDatesIntoSchedule();
+        }
+
         #endregion
 
         #region Buttons
@@ -118,6 +137,7 @@ namespace OnCallScheduler
             yearTextBox.Text = "";
             siteComboBox.SelectedIndex = -1;
             siteComboBox.Text = "";
+            selectedSiteIndex = -1;
         }
 
         private bool TestForValidDates()
@@ -141,7 +161,7 @@ namespace OnCallScheduler
 
             validDates = DateTime.TryParse(input, out result);
 
-            if(int.Parse(yearTextBox.Text) < 2020) validDates = false;
+            if (int.Parse(yearTextBox.Text) < 2020) validDates = false;
 
             return validDates;
         }
@@ -153,21 +173,7 @@ namespace OnCallScheduler
 
         #endregion
 
-        private void siteComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (siteComboBox.SelectedIndex == -1)
-            {
-                ClearAndResetControls();  
-                return;
-            }
-            site = allSites[siteComboBox.SelectedIndex]; // Untested
-
-            LoadDateIntoTextBoxes();
-            site.CurrentSchedule(); //only use these if there is actual data otherwise skip
-            LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
-            LoadInfoIntoStaff();    //will have to seperate data
-            LoadDatesIntoSchedule();
-        }
+        #region Site Buttons
 
         private void addSiteButton_Click(object sender, EventArgs e)
         {
@@ -184,8 +190,8 @@ namespace OnCallScheduler
             }
 
             Sites _site = new Sites();
-            _site.SiteName = siteComboBox.Text;            
-            
+            _site.SiteName = siteComboBox.Text.Trim();
+
             //int.Parse should be fine as it will of been tested already
             _site.Day = int.Parse(dayTextBox.Text);
             _site.Month = int.Parse(monthTextBox.Text);
@@ -200,8 +206,34 @@ namespace OnCallScheduler
 
         private void editSiteButton_Click(object sender, EventArgs e)
         {
+            if (siteComboBox.SelectedIndex == -1 && selectedSiteIndex == -1)
+            {
+                return;
+            }
+
+            string dialogText = "Are you sure you want to edit the site named: \n\n\t" +
+                                 allSites[selectedSiteIndex].SiteName + "\n\n\t\tTo\n\n\t" +
+                                 siteComboBox.Text + "\n\n\t" +
+                                 "Month = " + monthTextBox.Text +
+                                 "  Day = " + dayTextBox.Text +
+                                 "  Year = " + yearTextBox.Text;
+
+            DialogResult result = MessageBox.Show(dialogText, "Edit Site???", MessageBoxButtons.YesNo);
+            if (result == DialogResult.No) return;
+
+            if (TestForValidDates() == false)
+            {
+                MessageBox.Show("Your starting dates are not valid.");
+                return;
+            }
+
+            allSites[selectedSiteIndex].SiteName = siteComboBox.Text.Trim();
+            allSites[selectedSiteIndex].Month = int.Parse(monthTextBox.Text);
+            allSites[selectedSiteIndex].Day = int.Parse(dayTextBox.Text);
+            allSites[selectedSiteIndex].Year = int.Parse(yearTextBox.Text);
 
             ClearAndResetControls();
+            LoadSitesIntoSiteBox();
         }
 
         private void deleteSiteButton_Click(object sender, EventArgs e)
@@ -216,8 +248,39 @@ namespace OnCallScheduler
             if (result == DialogResult.No) return;
 
             allSites.RemoveAt(i);
-            siteComboBox.Items.RemoveAt(i);
             ClearAndResetControls();
+            LoadSitesIntoSiteBox();
         }
+
+        #endregion
+
+        #region Staff Names and Numbers Buttons
+
+        private void addStaffButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void editStaffButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void deleteStaffButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sortUpButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sortDownButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        #endregion
     }
 }

@@ -194,6 +194,7 @@
             addStaffButton.TabIndex = 10;
             addStaffButton.Text = "Add";
             addStaffButton.UseVisualStyleBackColor = true;
+            addStaffButton.Click += addStaffButton_Click;
             // 
             // editStaffButton
             // 
@@ -204,6 +205,7 @@
             editStaffButton.TabIndex = 11;
             editStaffButton.Text = "Edit";
             editStaffButton.UseVisualStyleBackColor = true;
+            editStaffButton.Click += editStaffButton_Click;
             // 
             // deleteStaffButton
             // 
@@ -214,6 +216,7 @@
             deleteStaffButton.TabIndex = 12;
             deleteStaffButton.Text = "Delete";
             deleteStaffButton.UseVisualStyleBackColor = true;
+            deleteStaffButton.Click += deleteStaffButton_Click;
             // 
             // sortLabel
             // 
@@ -233,6 +236,7 @@
             sortUpButton.TabIndex = 16;
             sortUpButton.Text = "Up";
             sortUpButton.UseVisualStyleBackColor = true;
+            sortUpButton.Click += sortUpButton_Click;
             // 
             // sortDownButton
             // 
@@ -243,6 +247,7 @@
             sortDownButton.TabIndex = 17;
             sortDownButton.Text = "Down";
             sortDownButton.UseVisualStyleBackColor = true;
+            sortDownButton.Click += sortDownButton_Click;
             // 
             // deleteSiteButton
             // 
