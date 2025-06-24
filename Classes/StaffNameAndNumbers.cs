@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,6 +67,23 @@ namespace OnCallScheduler
                 CircularArrayTraversal(-1);
             }
             return fifteenNames;    
+        }
+
+        public void SwapNames(int index1, int index2)
+        {
+            (string, string) temp = names[index1];
+            names[index1] = names[index2];  
+            names[index2] = temp;
+        }
+
+        public int GetStaffNamesCount()
+        {
+            return names.Count;
+        }
+
+        public StaffNameAndNumbers GetStaffNameAndNumbers()
+        {
+            return this;
         }
 
         private void CircularArrayTraversal(int jump)

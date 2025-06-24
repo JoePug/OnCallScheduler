@@ -89,6 +89,7 @@
             staffListView.GridLines = true;
             staffListView.Location = new Point(395, 208);
             staffListView.Margin = new Padding(3, 2, 3, 2);
+            staffListView.MultiSelect = false;
             staffListView.Name = "staffListView";
             staffListView.Size = new Size(355, 133);
             staffListView.TabIndex = 1;

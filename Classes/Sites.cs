@@ -68,10 +68,10 @@ namespace OnCallScheduler
 
             return s;
         }
-
-        public List<(string, string)> GetNamesAndNumbers()
+       
+        public StaffNameAndNumbers GetStaffNameAndNumbers()
         {
-            return staff.GetNameAndNumbersList();
+            return staff.GetStaffNameAndNumbers();
         }
 
         public bool FirstTimeCheck()

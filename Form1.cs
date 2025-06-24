@@ -56,7 +56,7 @@ namespace OnCallScheduler
         {
             staffListView.Items.Clear();
 
-            foreach ((string, string) text in site.GetNamesAndNumbers())
+            foreach ((string, string) text in site.GetStaffNameAndNumbers().GetNameAndNumbersList())
             {
                 ListViewItem lvl = new ListViewItem(text.Item1); //split the data
                 lvl.SubItems.Add(text.Item2); //split the data
@@ -257,8 +257,8 @@ namespace OnCallScheduler
         #region Staff Names and Numbers Buttons
 
         private void addStaffButton_Click(object sender, EventArgs e)
-        {
-
+        {            
+                
         }
 
         private void editStaffButton_Click(object sender, EventArgs e)
@@ -273,11 +273,29 @@ namespace OnCallScheduler
 
         private void sortUpButton_Click(object sender, EventArgs e)
         {
+            int index = staffListView.SelectedIndices.Count > 0 ? staffListView.SelectedIndices[0] : -1;
 
+            if(index == -1) return; 
+            if (index == 0) return; //return if selected is already at the top
+            
+            //todo Left off Here*************************************************
+            //swap index with index - 1
+            //refresh list
         }
 
         private void sortDownButton_Click(object sender, EventArgs e)
         {
+            int index = staffListView.SelectedIndices.Count > 0 ? staffListView.SelectedIndices[0] : -1;
+
+            if (index == -1) { return; }
+            
+            int index2 = site.GetStaffNameAndNumbers().GetStaffNamesCount() - 1;  //return if selected is already at the bottom
+            if(index2 > index)
+            {
+                //todo
+                //swap index with index +1
+                //refresh list
+            }
 
         }
 
