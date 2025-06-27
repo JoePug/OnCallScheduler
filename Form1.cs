@@ -273,30 +273,39 @@ namespace OnCallScheduler
 
         private void sortUpButton_Click(object sender, EventArgs e)
         {
-            int index = staffListView.SelectedIndices.Count > 0 ? staffListView.SelectedIndices[0] : -1;
+            staffListView.Focus();
+            if (staffListView.Items.Count < 2) return;
+            if (staffListView.SelectedIndices[0] < 1) return;
 
-            if(index == -1) return; 
-            if (index == 0) return; //return if selected is already at the top
-            
-            //todo Left off Here*************************************************
+            int index = staffListView.SelectedIndices[0];
+
             //swap index with index - 1
-            //refresh list
+            site.GetStaffNameAndNumbers().SwapNames(index, index - 1);
+            LoadInfoIntoStaff(); //refresh list
+            staffListView.Items[index - 1].Selected = true;
+            staffListView.Items[index - 1].Focused = true;
+            staffListView.Focus();
+            staffListView.EnsureVisible(index - 1);  
+            
+            //todo save
         }
 
         private void sortDownButton_Click(object sender, EventArgs e)
         {
-            int index = staffListView.SelectedIndices.Count > 0 ? staffListView.SelectedIndices[0] : -1;
+            staffListView.Focus();
+            if (staffListView.Items.Count < 2) return;
+            if (staffListView.SelectedIndices[0] == staffListView.Items.Count - 1) return;
 
-            if (index == -1) { return; }
-            
-            int index2 = site.GetStaffNameAndNumbers().GetStaffNamesCount() - 1;  //return if selected is already at the bottom
-            if(index2 > index)
-            {
-                //todo
-                //swap index with index +1
-                //refresh list
-            }
+            int index = staffListView.SelectedIndices[0];
+                          
+            site.GetStaffNameAndNumbers().SwapNames(index, index + 1);
+            LoadInfoIntoStaff();
+            staffListView.Items[index + 1].Selected = true;
+            staffListView.Items[index + 1].Focused = true;
+            staffListView.Focus();
+            staffListView.EnsureVisible(index + 1);
 
+            //todo save
         }
 
         #endregion

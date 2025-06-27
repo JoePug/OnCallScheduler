@@ -63,6 +63,7 @@
             // displayListView
             // 
             displayListView.Columns.AddRange(new ColumnHeader[] { columnHeader1, columnHeader2 });
+            displayListView.FullRowSelect = true;
             displayListView.GridLines = true;
             displayListView.Location = new Point(23, 59);
             displayListView.Margin = new Padding(3, 2, 3, 2);
@@ -86,6 +87,7 @@
             // staffListView
             // 
             staffListView.Columns.AddRange(new ColumnHeader[] { columnHeader3, columnHeader4 });
+            staffListView.FullRowSelect = true;
             staffListView.GridLines = true;
             staffListView.Location = new Point(395, 208);
             staffListView.Margin = new Padding(3, 2, 3, 2);
