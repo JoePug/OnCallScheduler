@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OnCallScheduler
 { 
-    class StaffNameAndNumbers
+    public class StaffNameAndNumbers
     {
         List<(string, string)> names = new List<(string, string)>();
 
