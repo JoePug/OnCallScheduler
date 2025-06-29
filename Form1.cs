@@ -107,6 +107,7 @@ namespace OnCallScheduler
 
         private void nextScheduleButton_Click(object sender, EventArgs e)
         {
+            if (staffListView.Items.Count == 0) return;
             //add 105 days
             site.NextSchedule();
             LoadDatesIntoSchedule();
@@ -114,6 +115,7 @@ namespace OnCallScheduler
 
         private void previousScheduleButton_Click(object sender, EventArgs e)
         {
+            if (staffListView.Items.Count == 0) return;
             //subtract 105 days
             site.PreviousSchedule();
             LoadDatesIntoSchedule();
@@ -257,22 +259,45 @@ namespace OnCallScheduler
         #region Staff Names and Numbers Buttons
 
         private void addStaffButton_Click(object sender, EventArgs e)
-        {            
-                
+        {
+            //test for site loaded
+            if(siteComboBox.SelectedIndex == -1) return;
+
+            StaffNameAddEditForm staffForm = new StaffNameAddEditForm(site.GetStaffNameAndNumbers(), true, -1);
+            staffForm.Text = "Add New Staff Name and Phone Number";
+            staffForm.ShowDialog();
+            LoadInfoIntoStaff();
+            staffListView.SelectedIndices.Clear();
         }
 
         private void editStaffButton_Click(object sender, EventArgs e)
         {
+            //test for site loaded
+            if (siteComboBox.SelectedIndex == -1) return;
+            if (staffListView.SelectedIndices.Count == 0) return;
 
+            StaffNameAddEditForm staffForm = new StaffNameAddEditForm(site.GetStaffNameAndNumbers(), false, staffListView.SelectedIndices[0]);
+            staffForm.Text = "Edit Staff Name and Phone Number";
+            staffForm.ShowDialog();
+            LoadInfoIntoStaff();
+            staffListView.SelectedIndices.Clear();
         }
 
         private void deleteStaffButton_Click(object sender, EventArgs e)
         {
+            //test for site loaded
+            if (siteComboBox.SelectedIndex == -1) return;
+            if (staffListView.SelectedIndices.Count == 0) return;
 
+            site.GetStaffNameAndNumbers().DeleteOneName(staffListView.SelectedIndices[0]);
+            LoadInfoIntoStaff();
+            staffListView.SelectedIndices.Clear();
         }
 
         private void sortUpButton_Click(object sender, EventArgs e)
         {
+            if (staffListView.SelectedIndices.Count == 0) return;
+
             staffListView.Focus();
             if (staffListView.Items.Count < 2) return;
             if (staffListView.SelectedIndices[0] < 1) return;
@@ -292,6 +317,8 @@ namespace OnCallScheduler
 
         private void sortDownButton_Click(object sender, EventArgs e)
         {
+            if (staffListView.SelectedIndices.Count == 0) return;
+
             staffListView.Focus();
             if (staffListView.Items.Count < 2) return;
             if (staffListView.SelectedIndices[0] == staffListView.Items.Count - 1) return;

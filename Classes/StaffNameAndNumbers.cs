@@ -27,6 +27,21 @@ namespace OnCallScheduler
             names.Add(name);    
         }
 
+        public (string, string) GetOneName(int index)
+        {
+            return names[index];
+        }
+
+        public void EditOneName((string, string) oneName, int index)
+        {
+            names[index] = oneName;
+        }
+
+        public void DeleteOneName(int index)
+        {
+            names.RemoveAt(index);
+        }
+
         public (string, string)[] GetNextFifteenNames()
         {
             (string, string)[] fifteenNames = new (string, string)[15];

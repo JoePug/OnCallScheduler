@@ -90,7 +90,7 @@
             // staffNameTextBox
             // 
             staffNameTextBox.Location = new Point(26, 79);
-            staffNameTextBox.MaxLength = 2;
+            staffNameTextBox.MaxLength = 150;
             staffNameTextBox.Name = "staffNameTextBox";
             staffNameTextBox.Size = new Size(197, 23);
             staffNameTextBox.TabIndex = 1;
