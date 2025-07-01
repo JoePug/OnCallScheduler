@@ -11,15 +11,15 @@ namespace OnCallScheduler
     {
         List<(string, string)> names = new List<(string, string)>();
 
-        public int IndexOfLastUsed { get; set; } = 0;
+        public int IndexOfLastUsed { get; set; } = -1;
         bool pagedForward = true;
 
         public StaffNameAndNumbers()
         {
             //temp data
-            names.Add(("Jamie Maher", "(570)280-4194"));
-            names.Add(("Sandy O'Connell", "(570)335-4419"));
-            names.Add(("Joe Pugliese", "(908)635-4106"));
+            //names.Add(("Jamie Maher", "(570)280-4194"));
+            //names.Add(("Sandy O'Connell", "(570)335-4419"));
+            //names.Add(("Joe Pugliese", "(908)635-4106"));
         }
 
         public void AddNewNameAndNumber((string, string) name)

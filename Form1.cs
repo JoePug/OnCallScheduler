@@ -26,8 +26,8 @@ namespace OnCallScheduler
         {
             //check for first time and ask for data if it is
             // get startup month, day and year and staff that is the first on the page
-            allSites.Add(site);// just to have something there for now. Fix later when you move test data to it's own class.
-            LoadSitesIntoSiteBox();
+            //allSites.Add(site);// just to have something there for now. Fix later when you move test data to it's own class.
+           // LoadSitesIntoSiteBox();
         }
 
         #endregion
@@ -55,6 +55,8 @@ namespace OnCallScheduler
         private void LoadInfoIntoStaff()
         {
             staffListView.Items.Clear();
+            //if (site.GetStaffNameAndNumbers().GetStaffNamesCount() == 0) MessageBox.Show("It's gonna crash");
+            //MessageBox.Show(site.GetStaffNameAndNumbers().GetStaffNamesCount().ToString());
 
             foreach ((string, string) text in site.GetStaffNameAndNumbers().GetNameAndNumbersList())
             {
@@ -83,6 +85,7 @@ namespace OnCallScheduler
 
         private void siteComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (siteComboBox.Text == string.Empty) siteComboBox.SelectedIndex = -1;
             if (siteComboBox.SelectedIndex == -1)
             {
                 ClearAndResetControls();
@@ -93,10 +96,19 @@ namespace OnCallScheduler
             site = allSites[selectedSiteIndex];
 
             LoadDateIntoTextBoxes();
-            site.CurrentSchedule(); //only use these if there is actual data otherwise skip
-            LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
-            LoadInfoIntoStaff();    //will have to seperate data
-            LoadDatesIntoSchedule();
+            if(site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) site.CurrentSchedule(); //only use these if there is actual data otherwise skip
+            //LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
+            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) LoadInfoIntoStaff();    //will have to seperate data
+            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) LoadDatesIntoSchedule();
+        }
+
+        private void siteComboBox_TextChanged(object sender, EventArgs e)
+        {
+            if (siteComboBox.Text == string.Empty)
+            {
+                siteComboBox.SelectedIndex = -1;
+                ClearAndResetControls();
+            }
         }
 
         #endregion
@@ -107,6 +119,7 @@ namespace OnCallScheduler
 
         private void nextScheduleButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             if (staffListView.Items.Count == 0) return;
             //add 105 days
             site.NextSchedule();
@@ -115,6 +128,7 @@ namespace OnCallScheduler
 
         private void previousScheduleButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             if (staffListView.Items.Count == 0) return;
             //subtract 105 days
             site.PreviousSchedule();
@@ -179,7 +193,11 @@ namespace OnCallScheduler
 
         private void addSiteButton_Click(object sender, EventArgs e)
         {
-            if (siteComboBox.Text == string.Empty) return;
+            if (siteComboBox.Text == string.Empty)
+            {
+                MessageBox.Show("You need a name for this site(s)");
+                return;
+            }
 
             DialogResult result = MessageBox.Show("Are you sure you want to create a site named: \n\n\t\t" + siteComboBox.Text,
                                     "Create Site???", MessageBoxButtons.YesNo);
@@ -208,6 +226,7 @@ namespace OnCallScheduler
 
         private void editSiteButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             if (siteComboBox.SelectedIndex == -1 && selectedSiteIndex == -1)
             {
                 return;
@@ -240,6 +259,7 @@ namespace OnCallScheduler
 
         private void deleteSiteButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             if (siteComboBox.SelectedIndex == -1)
             {
                 return;
@@ -260,18 +280,25 @@ namespace OnCallScheduler
 
         private void addStaffButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             //test for site loaded
-            if(siteComboBox.SelectedIndex == -1) return;
+            if (siteComboBox.SelectedIndex == -1) return;
 
             StaffNameAddEditForm staffForm = new StaffNameAddEditForm(site.GetStaffNameAndNumbers(), true, -1);
             staffForm.Text = "Add New Staff Name and Phone Number";
             staffForm.ShowDialog();
-            LoadInfoIntoStaff();
+
+
+            MessageBox.Show("Here");
+            LoadInfoIntoStaff();            
             staffListView.SelectedIndices.Clear();
+
+            LoadDatesIntoSchedule();
         }
 
         private void editStaffButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             //test for site loaded
             if (siteComboBox.SelectedIndex == -1) return;
             if (staffListView.SelectedIndices.Count == 0) return;
@@ -285,6 +312,7 @@ namespace OnCallScheduler
 
         private void deleteStaffButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             //test for site loaded
             if (siteComboBox.SelectedIndex == -1) return;
             if (staffListView.SelectedIndices.Count == 0) return;
@@ -296,6 +324,7 @@ namespace OnCallScheduler
 
         private void sortUpButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             if (staffListView.SelectedIndices.Count == 0) return;
 
             staffListView.Focus();
@@ -310,13 +339,14 @@ namespace OnCallScheduler
             staffListView.Items[index - 1].Selected = true;
             staffListView.Items[index - 1].Focused = true;
             staffListView.Focus();
-            staffListView.EnsureVisible(index - 1);  
-            
+            staffListView.EnsureVisible(index - 1);
+
             //todo save
         }
 
         private void sortDownButton_Click(object sender, EventArgs e)
         {
+            if (selectedSiteIndex == -1) return;
             if (staffListView.SelectedIndices.Count == 0) return;
 
             staffListView.Focus();
@@ -324,7 +354,7 @@ namespace OnCallScheduler
             if (staffListView.SelectedIndices[0] == staffListView.Items.Count - 1) return;
 
             int index = staffListView.SelectedIndices[0];
-                          
+
             site.GetStaffNameAndNumbers().SwapNames(index, index + 1);
             LoadInfoIntoStaff();
             staffListView.Items[index + 1].Selected = true;
@@ -336,5 +366,6 @@ namespace OnCallScheduler
         }
 
         #endregion
+        
     }
 }
