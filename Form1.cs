@@ -55,8 +55,6 @@ namespace OnCallScheduler
         private void LoadInfoIntoStaff()
         {
             staffListView.Items.Clear();
-            //if (site.GetStaffNameAndNumbers().GetStaffNamesCount() == 0) MessageBox.Show("It's gonna crash");
-            //MessageBox.Show(site.GetStaffNameAndNumbers().GetStaffNamesCount().ToString());
 
             foreach ((string, string) text in site.GetStaffNameAndNumbers().GetNameAndNumbersList())
             {
@@ -288,11 +286,10 @@ namespace OnCallScheduler
             staffForm.Text = "Add New Staff Name and Phone Number";
             staffForm.ShowDialog();
 
-
-            MessageBox.Show("Here");
             LoadInfoIntoStaff();            
             staffListView.SelectedIndices.Clear();
 
+            site.CurrentSchedule();
             LoadDatesIntoSchedule();
         }
 
@@ -308,6 +305,8 @@ namespace OnCallScheduler
             staffForm.ShowDialog();
             LoadInfoIntoStaff();
             staffListView.SelectedIndices.Clear();
+            site.CurrentSchedule();
+            LoadDatesIntoSchedule();
         }
 
         private void deleteStaffButton_Click(object sender, EventArgs e)
@@ -320,6 +319,16 @@ namespace OnCallScheduler
             site.GetStaffNameAndNumbers().DeleteOneName(staffListView.SelectedIndices[0]);
             LoadInfoIntoStaff();
             staffListView.SelectedIndices.Clear();
+
+            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() == 0)
+            {
+                displayListView.Items.Clear();
+                return;
+            }            
+            //todo - start here something about the next line screws things up and causes a crash
+            //site.CurrentSchedule();
+            MessageBox.Show("here");
+            LoadDatesIntoSchedule();
         }
 
         private void sortUpButton_Click(object sender, EventArgs e)
@@ -341,6 +350,9 @@ namespace OnCallScheduler
             staffListView.Focus();
             staffListView.EnsureVisible(index - 1);
 
+            site.CurrentSchedule();
+            LoadDatesIntoSchedule();
+
             //todo save
         }
 
@@ -361,6 +373,9 @@ namespace OnCallScheduler
             staffListView.Items[index + 1].Focused = true;
             staffListView.Focus();
             staffListView.EnsureVisible(index + 1);
+
+            site.CurrentSchedule();
+            LoadDatesIntoSchedule();
 
             //todo save
         }
