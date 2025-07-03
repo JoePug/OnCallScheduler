@@ -29,6 +29,9 @@ namespace OnCallScheduler
 
         public void CurrentSchedule()
         {
+            if (CurrentStaff >= staff.GetStaffNamesCount()) CurrentStaff = staff.GetStaffNamesCount() - 1;
+            CurrentStaff = staff.IndexOfFirstOnCurrentPage;
+
             GetNewPageOfDates();
             GetNewPageOfNamesAndNumbers(true);
         }

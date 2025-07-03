@@ -325,9 +325,8 @@ namespace OnCallScheduler
                 displayListView.Items.Clear();
                 return;
             }            
-            //todo - start here something about the next line screws things up and causes a crash
-            //site.CurrentSchedule();
-            MessageBox.Show("here");
+            
+            site.CurrentSchedule();
             LoadDatesIntoSchedule();
         }
 

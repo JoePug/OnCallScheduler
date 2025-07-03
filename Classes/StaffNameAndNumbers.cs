@@ -12,6 +12,7 @@ namespace OnCallScheduler
         List<(string, string)> names = new List<(string, string)>();
 
         public int IndexOfLastUsed { get; set; } = -1;
+        public int IndexOfFirstOnCurrentPage { get; set; } = 0;
         bool pagedForward = true;
 
         public StaffNameAndNumbers()
@@ -24,6 +25,8 @@ namespace OnCallScheduler
 
         public void AddNewNameAndNumber((string, string) name)
         {
+            //when you add a new name, redo the index of last used to point to the first one of the displaListView
+
             names.Add(name);    
         }
 
@@ -55,7 +58,8 @@ namespace OnCallScheduler
             }
             
             for (int i = 0; i < 15; i++)
-            {                
+            {
+                if (i == 0) IndexOfFirstOnCurrentPage = IndexOfLastUsed;
                 fifteenNames[i] = names[IndexOfLastUsed];
                 CircularArrayTraversal(1);
             }
@@ -77,7 +81,8 @@ namespace OnCallScheduler
             }
 
             for (int i = 15; i > 0; i--)
-            {                
+            {
+                if (i == 0) IndexOfFirstOnCurrentPage = IndexOfLastUsed;
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
                 CircularArrayTraversal(-1);
             }
