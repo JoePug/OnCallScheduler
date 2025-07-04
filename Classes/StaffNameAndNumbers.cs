@@ -82,7 +82,7 @@ namespace OnCallScheduler
 
             for (int i = 15; i > 0; i--)
             {
-                if (i == 0) IndexOfFirstOnCurrentPage = IndexOfLastUsed;
+                if ((i - 1) == 0) IndexOfFirstOnCurrentPage = IndexOfLastUsed;
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
                 CircularArrayTraversal(-1);
             }

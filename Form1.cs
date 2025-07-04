@@ -27,7 +27,7 @@ namespace OnCallScheduler
             //check for first time and ask for data if it is
             // get startup month, day and year and staff that is the first on the page
             //allSites.Add(site);// just to have something there for now. Fix later when you move test data to it's own class.
-           // LoadSitesIntoSiteBox();
+            // LoadSitesIntoSiteBox();
         }
 
         #endregion
@@ -94,7 +94,7 @@ namespace OnCallScheduler
             site = allSites[selectedSiteIndex];
 
             LoadDateIntoTextBoxes();
-            if(site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) site.CurrentSchedule(); //only use these if there is actual data otherwise skip
+            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) site.CurrentSchedule(); //only use these if there is actual data otherwise skip
             //LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
             if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) LoadInfoIntoStaff();    //will have to seperate data
             if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) LoadDatesIntoSchedule();
@@ -136,6 +136,15 @@ namespace OnCallScheduler
         private void exitButton_Click(object sender, EventArgs e)
         {
             QuitApplication();
+        }
+
+        private void resetOrderButton_Click(object sender, EventArgs e)
+        {
+            if (selectedSiteIndex == -1) return;
+            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() < 2) return;
+
+            site.CurrentSchedule(true);
+            LoadDatesIntoSchedule();
         }
 
         #endregion
@@ -286,10 +295,10 @@ namespace OnCallScheduler
             staffForm.Text = "Add New Staff Name and Phone Number";
             staffForm.ShowDialog();
 
-            LoadInfoIntoStaff();            
+            LoadInfoIntoStaff();
             staffListView.SelectedIndices.Clear();
 
-            site.CurrentSchedule();
+            site.CurrentSchedule(true);
             LoadDatesIntoSchedule();
         }
 
@@ -324,10 +333,11 @@ namespace OnCallScheduler
             {
                 displayListView.Items.Clear();
                 return;
-            }            
-            
-            site.CurrentSchedule();
-            LoadDatesIntoSchedule();
+            }
+
+            site.CurrentSchedule(true); //It'll be one off if you hit previous and then delete one if you don't do this twice.
+            site.CurrentSchedule(true); //So this works or fix the code the right way, but this solution is simple
+            LoadDatesIntoSchedule(); //as loading the CurrentSchedule goes forward instead of backwards.
         }
 
         private void sortUpButton_Click(object sender, EventArgs e)
@@ -380,6 +390,5 @@ namespace OnCallScheduler
         }
 
         #endregion
-        
     }
 }

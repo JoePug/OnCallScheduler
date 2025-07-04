@@ -58,6 +58,7 @@
             yearLabel = new Label();
             dayLabel = new Label();
             monthLabel = new Label();
+            resetOrderButton = new Button();
             SuspendLayout();
             // 
             // displayListView
@@ -120,7 +121,7 @@
             // staffLabel
             // 
             staffLabel.AutoSize = true;
-            staffLabel.Location = new Point(541, 184);
+            staffLabel.Location = new Point(553, 184);
             staffLabel.Name = "staffLabel";
             staffLabel.Size = new Size(31, 15);
             staffLabel.TabIndex = 3;
@@ -169,7 +170,7 @@
             // 
             // previousScheduleButton
             // 
-            previousScheduleButton.Location = new Point(117, 416);
+            previousScheduleButton.Location = new Point(64, 416);
             previousScheduleButton.Margin = new Padding(3, 2, 3, 2);
             previousScheduleButton.Name = "previousScheduleButton";
             previousScheduleButton.Size = new Size(68, 30);
@@ -180,7 +181,7 @@
             // 
             // nextScheduleButton
             // 
-            nextScheduleButton.Location = new Point(204, 416);
+            nextScheduleButton.Location = new Point(195, 416);
             nextScheduleButton.Margin = new Padding(3, 2, 3, 2);
             nextScheduleButton.Name = "nextScheduleButton";
             nextScheduleButton.Size = new Size(68, 30);
@@ -225,7 +226,7 @@
             // sortLabel
             // 
             sortLabel.AutoSize = true;
-            sortLabel.Location = new Point(774, 215);
+            sortLabel.Location = new Point(774, 226);
             sortLabel.Name = "sortLabel";
             sortLabel.Size = new Size(28, 15);
             sortLabel.TabIndex = 15;
@@ -233,7 +234,7 @@
             // 
             // sortUpButton
             // 
-            sortUpButton.Location = new Point(765, 240);
+            sortUpButton.Location = new Point(765, 251);
             sortUpButton.Margin = new Padding(3, 2, 3, 2);
             sortUpButton.Name = "sortUpButton";
             sortUpButton.Size = new Size(53, 30);
@@ -244,7 +245,7 @@
             // 
             // sortDownButton
             // 
-            sortDownButton.Location = new Point(765, 284);
+            sortDownButton.Location = new Point(765, 295);
             sortDownButton.Margin = new Padding(3, 2, 3, 2);
             sortDownButton.Name = "sortDownButton";
             sortDownButton.Size = new Size(53, 30);
@@ -346,11 +347,23 @@
             monthLabel.TabIndex = 27;
             monthLabel.Text = "Month ";
             // 
+            // resetOrderButton
+            // 
+            resetOrderButton.Location = new Point(325, 410);
+            resetOrderButton.Margin = new Padding(3, 2, 3, 2);
+            resetOrderButton.Name = "resetOrderButton";
+            resetOrderButton.Size = new Size(53, 42);
+            resetOrderButton.TabIndex = 28;
+            resetOrderButton.Text = "Reset Order";
+            resetOrderButton.UseVisualStyleBackColor = true;
+            resetOrderButton.Click += resetOrderButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(835, 471);
+            Controls.Add(resetOrderButton);
             Controls.Add(monthLabel);
             Controls.Add(dayLabel);
             Controls.Add(yearLabel);
@@ -419,5 +432,6 @@
         private Label yearLabel;
         private Label dayLabel;
         private Label monthLabel;
+        private Button resetOrderButton;
     }
 }
