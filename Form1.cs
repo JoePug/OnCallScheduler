@@ -335,7 +335,7 @@ namespace OnCallScheduler
                 return;
             }
 
-            site.CurrentSchedule(true); //It'll be one off if you hit previous and then delete one if you don't do this twice.
+            //site.CurrentSchedule(true); //It'll be one off if you hit previous and then delete one if you don't do this twice.
             site.CurrentSchedule(true); //So this works or fix the code the right way, but this solution is simple
             LoadDatesIntoSchedule(); //as loading the CurrentSchedule goes forward instead of backwards.
         }
