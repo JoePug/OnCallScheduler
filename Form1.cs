@@ -143,7 +143,7 @@ namespace OnCallScheduler
             if (selectedSiteIndex == -1) return;
             if (site.GetStaffNameAndNumbers().GetStaffNamesCount() < 2) return;
 
-            site.CurrentSchedule(true);
+            site.CurrentSchedule();
             LoadDatesIntoSchedule();
         }
 
@@ -298,7 +298,7 @@ namespace OnCallScheduler
             LoadInfoIntoStaff();
             staffListView.SelectedIndices.Clear();
 
-            site.CurrentSchedule(true);
+            site.CurrentSchedule();
             LoadDatesIntoSchedule();
         }
 
@@ -335,9 +335,8 @@ namespace OnCallScheduler
                 return;
             }
 
-            //site.CurrentSchedule(true); //It'll be one off if you hit previous and then delete one if you don't do this twice.
-            site.CurrentSchedule(true); //So this works or fix the code the right way, but this solution is simple
-            LoadDatesIntoSchedule(); //as loading the CurrentSchedule goes forward instead of backwards.
+            site.CurrentSchedule();
+            LoadDatesIntoSchedule(); 
         }
 
         private void sortUpButton_Click(object sender, EventArgs e)

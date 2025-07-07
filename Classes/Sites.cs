@@ -27,19 +27,13 @@ namespace OnCallScheduler
 
         #region Public Methods
 
-        public void CurrentSchedule(bool AddOrDeleted = false)
+        public void CurrentSchedule()
         {
-            if (AddOrDeleted)
-            {
-                CurrentStaff = 0;
-            }
-            else
-            {
-                CurrentStaff = staff.IndexOfFirstOnCurrentPage;
-            }
+            CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain();
 
+            CurrentStaff = staff.IndexOfFirstOnCurrentPage;
             GetNewPageOfDates();
-            GetNewPageOfNamesAndNumbers(true);
+            //GetNewPageOfNamesAndNumbers(true);
         }
 
         public void NextSchedule()

@@ -89,6 +89,21 @@ namespace OnCallScheduler
             return fifteenNames;    
         }
 
+        public (string, string)[] GetCurrnetNamesAgain()
+        {
+            (string, string)[] fifteenNames = new (string, string)[15];
+            int j = 0;
+
+            for (int i = 0; i < 15; i++)
+            {
+                fifteenNames[i] = names[j];
+                j++;
+                if (j == names.Count) j = 0;
+            }
+
+            return fifteenNames;
+        }
+
         public void SwapNames(int index1, int index2)
         {
             (string, string) temp = names[index1];
