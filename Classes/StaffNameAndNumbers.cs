@@ -101,6 +101,9 @@ namespace OnCallScheduler
                 if (j == names.Count) j = 0;
             }
 
+            IndexOfLastUsed = j;
+            IndexOfFirstOnCurrentPage = j;
+
             return fifteenNames;
         }
 

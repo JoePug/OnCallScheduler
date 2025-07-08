@@ -31,7 +31,7 @@ namespace OnCallScheduler
         {
             CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain();
 
-            CurrentStaff = staff.IndexOfFirstOnCurrentPage;
+            //CurrentStaff = staff.IndexOfFirstOnCurrentPage;
             GetNewPageOfDates();
             //GetNewPageOfNamesAndNumbers(true);
         }

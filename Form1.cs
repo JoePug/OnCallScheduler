@@ -13,6 +13,7 @@ namespace OnCallScheduler
         private Sites site = new Sites();
         private List<Sites> allSites = new List<Sites>();
         private int selectedSiteIndex = -1;
+        private FileLoadSave loadSaveData = new FileLoadSave();
 
         #region Startup Methods
 
@@ -28,6 +29,8 @@ namespace OnCallScheduler
             // get startup month, day and year and staff that is the first on the page
             //allSites.Add(site);// just to have something there for now. Fix later when you move test data to it's own class.
             // LoadSitesIntoSiteBox();
+
+            LoadDataFromFile();
         }
 
         #endregion
@@ -107,6 +110,35 @@ namespace OnCallScheduler
                 siteComboBox.SelectedIndex = -1;
                 ClearAndResetControls();
             }
+        }
+
+        private void LoadDataFromFile()
+        {
+            // todo - just loads the test data for now. will need to fix for real data
+            
+            List<string> data = loadSaveData.LoadTestData();
+            int numOfSites = int.Parse(data[0]);
+            int numOfStaff = int.Parse(data[1]);
+            data.RemoveAt(0);
+            data.RemoveAt(0);
+            
+            Sites _site = new Sites();                
+
+            //int.Parse should be fine as it will of been tested already
+            _site.Month = int.Parse(data[0]);
+            _site.Day = int.Parse(data[1]);
+            _site.Year = int.Parse(data[2]);
+
+            _site.SiteName = data[3];
+
+            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[4], data[5]));
+            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[6], data[7]));
+            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[8], data[9]));
+            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[10], data[11]));
+
+            allSites.Add(_site);
+
+            siteComboBox.Items.Add(_site.SiteName);    
         }
 
         #endregion
