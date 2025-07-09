@@ -12,16 +12,7 @@ namespace OnCallScheduler
         List<(string, string)> names = new List<(string, string)>();
 
         public int IndexOfLastUsed { get; set; } = -1;
-        public int IndexOfFirstOnCurrentPage { get; set; } = 0;
         bool pagedForward = true;
-
-        public StaffNameAndNumbers()
-        {
-            //temp data
-            //names.Add(("Jamie Maher", "(570)280-4194"));
-            //names.Add(("Sandy O'Connell", "(570)335-4419"));
-            //names.Add(("Joe Pugliese", "(908)635-4106"));
-        }
 
         public void AddNewNameAndNumber((string, string) name)
         {
@@ -59,7 +50,6 @@ namespace OnCallScheduler
             
             for (int i = 0; i < 15; i++)
             {
-                if (i == 0) IndexOfFirstOnCurrentPage = IndexOfLastUsed;
                 fifteenNames[i] = names[IndexOfLastUsed];
                 CircularArrayTraversal(1);
             }
@@ -82,7 +72,6 @@ namespace OnCallScheduler
 
             for (int i = 15; i > 0; i--)
             {
-                if ((i - 1) == 0) IndexOfFirstOnCurrentPage = IndexOfLastUsed;
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
                 CircularArrayTraversal(-1);
             }
@@ -92,17 +81,16 @@ namespace OnCallScheduler
         public (string, string)[] GetCurrnetNamesAgain()
         {
             (string, string)[] fifteenNames = new (string, string)[15];
-            int j = 0;
+            
+            IndexOfLastUsed = 0;
 
             for (int i = 0; i < 15; i++)
             {
-                fifteenNames[i] = names[j];
-                j++;
-                if (j == names.Count) j = 0;
+                fifteenNames[i] = names[IndexOfLastUsed];
+                CircularArrayTraversal(1);
             }
 
-            IndexOfLastUsed = j;
-            IndexOfFirstOnCurrentPage = j;
+            pagedForward = true;
 
             return fifteenNames;
         }

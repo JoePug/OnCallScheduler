@@ -29,11 +29,12 @@ namespace OnCallScheduler
 
         public void CurrentSchedule()
         {
-            CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain();
+            staff.IndexOfLastUsed = CurrentStaff;
 
-            //CurrentStaff = staff.IndexOfFirstOnCurrentPage;
+            CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain();
             GetNewPageOfDates();
-            //GetNewPageOfNamesAndNumbers(true);
+
+            CurrentStaff = staff.IndexOfLastUsed;
         }
 
         public void NextSchedule()

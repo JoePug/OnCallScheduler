@@ -113,32 +113,38 @@ namespace OnCallScheduler
         }
 
         private void LoadDataFromFile()
-        {
-            // todo - just loads the test data for now. will need to fix for real data
-            
+        {            
             List<string> data = loadSaveData.LoadTestData();
             int numOfSites = int.Parse(data[0]);
-            int numOfStaff = int.Parse(data[1]);
-            data.RemoveAt(0);
-            data.RemoveAt(0);
             
-            Sites _site = new Sites();                
+            data.RemoveAt(0);
 
-            //int.Parse should be fine as it will of been tested already
-            _site.Month = int.Parse(data[0]);
-            _site.Day = int.Parse(data[1]);
-            _site.Year = int.Parse(data[2]);
+            for (int i = 0; i < numOfSites; i++)
+            {
+                Sites _site = new Sites();
 
-            _site.SiteName = data[3];
+                //int.Parse should be fine as it will of been tested already
+                _site.Month = int.Parse(data[0]);
+                _site.Day = int.Parse(data[1]);
+                _site.Year = int.Parse(data[2]);
+                _site.SiteName = data[3];
 
-            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[4], data[5]));
-            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[6], data[7]));
-            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[8], data[9]));
-            _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[10], data[11]));
+                int numOfStaff = int.Parse(data[4]);
 
-            allSites.Add(_site);
+                data.RemoveRange(0, 5);
 
-            siteComboBox.Items.Add(_site.SiteName);    
+                if (numOfStaff > 0)
+                {
+                    for (int j = 0; j < numOfStaff; j++)
+                    {
+                        _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[0], data[1]));
+                        data.RemoveRange(0, 2);
+                    }
+                }
+                allSites.Add(_site);
+
+                siteComboBox.Items.Add(_site.SiteName);
+            }
         }
 
         #endregion
