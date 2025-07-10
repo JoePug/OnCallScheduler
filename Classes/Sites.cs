@@ -27,13 +27,18 @@ namespace OnCallScheduler
 
         #region Public Methods
 
-        public void CurrentSchedule()
+        public void CurrentSchedule(bool reloadCurrentStaff = false)
         {
-            staff.IndexOfLastUsed = CurrentStaff;
+            if (reloadCurrentStaff)
+            {
+                CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain(CurrentStaff); //todo - CurrentStaff needs to be saved as to remember the index of first on page 
+            }                                     //when switching sites and reloading at startup. 
+            else
+            {
+                CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain();
+            }
 
-            CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain();
             GetNewPageOfDates();
-
             CurrentStaff = staff.IndexOfLastUsed;
         }
 

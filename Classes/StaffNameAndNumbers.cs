@@ -78,11 +78,11 @@ namespace OnCallScheduler
             return fifteenNames;    
         }
 
-        public (string, string)[] GetCurrnetNamesAgain()
+        public (string, string)[] GetCurrnetNamesAgain(int lastSavedTopOfPage = 0)
         {
             (string, string)[] fifteenNames = new (string, string)[15];
             
-            IndexOfLastUsed = 0;
+            IndexOfLastUsed = lastSavedTopOfPage;
 
             for (int i = 0; i < 15; i++)
             {

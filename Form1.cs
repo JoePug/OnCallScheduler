@@ -97,10 +97,12 @@ namespace OnCallScheduler
             site = allSites[selectedSiteIndex];
 
             LoadDateIntoTextBoxes();
-            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) site.CurrentSchedule(); //only use these if there is actual data otherwise skip
-            //LoadDatesIntoSchedule(); //will probably happen last after all other checks and setup stuff
-            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) LoadInfoIntoStaff();    //will have to seperate data
-            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0) LoadDatesIntoSchedule();
+            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0)
+            {
+                site.CurrentSchedule(true); //only use these if there is actual data otherwise skip            
+                LoadInfoIntoStaff();    //will have to seperate data
+                LoadDatesIntoSchedule();
+            }
         }
 
         private void siteComboBox_TextChanged(object sender, EventArgs e)
