@@ -13,6 +13,8 @@ namespace OnCallScheduler
 
         public int IndexOfLastUsed { get; set; } = -1;
         bool pagedForward = true;
+        bool useZero = true;
+        public int LastSavedTopOfPage { get; set; } = 0;
 
         public void AddNewNameAndNumber((string, string) name)
         {
@@ -50,6 +52,7 @@ namespace OnCallScheduler
             
             for (int i = 0; i < 15; i++)
             {
+                if (i == 0) LastSavedTopOfPage = IndexOfLastUsed;
                 fifteenNames[i] = names[IndexOfLastUsed];
                 CircularArrayTraversal(1);
             }
@@ -72,20 +75,30 @@ namespace OnCallScheduler
 
             for (int i = 15; i > 0; i--)
             {
+                if (i - 1 == 0) LastSavedTopOfPage = IndexOfLastUsed;
                 fifteenNames[i - 1] = names[IndexOfLastUsed];
                 CircularArrayTraversal(-1);
             }
             return fifteenNames;    
         }
 
-        public (string, string)[] GetCurrnetNamesAgain(int lastSavedTopOfPage = 0)
+        public (string, string)[] ReloadPageChangedIndex()
+        {
+            useZero = false;
+            (string, string)[] temp = GetCurrnetNamesAgain();
+            useZero = true;
+            return temp;
+        }
+
+        public (string, string)[] GetCurrnetNamesAgain()
         {
             (string, string)[] fifteenNames = new (string, string)[15];
-            
-            IndexOfLastUsed = lastSavedTopOfPage;
+
+            if (useZero) IndexOfLastUsed = 0; else IndexOfLastUsed = LastSavedTopOfPage;
 
             for (int i = 0; i < 15; i++)
             {
+                if (i == 0) LastSavedTopOfPage = IndexOfLastUsed;
                 fifteenNames[i] = names[IndexOfLastUsed];
                 CircularArrayTraversal(1);
             }
