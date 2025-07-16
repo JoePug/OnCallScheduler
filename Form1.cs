@@ -115,36 +115,11 @@ namespace OnCallScheduler
         }
 
         private void LoadDataFromFile()
-        {            
-            List<string> data = loadSaveData.LoadTestData();
-            int numOfSites = int.Parse(data[0]);
-            
-            data.RemoveAt(0);
+        {
+            allSites = loadSaveData.GetDataFromFiles();
 
-            for (int i = 0; i < numOfSites; i++)
+            foreach (var _site in allSites) 
             {
-                Sites _site = new Sites();
-
-                //int.Parse should be fine as it will of been tested already
-                _site.Month = int.Parse(data[0]);
-                _site.Day = int.Parse(data[1]);
-                _site.Year = int.Parse(data[2]);
-                _site.SiteName = data[3];
-
-                int numOfStaff = int.Parse(data[4]);
-
-                data.RemoveRange(0, 5);
-
-                if (numOfStaff > 0)
-                {
-                    for (int j = 0; j < numOfStaff; j++)
-                    {
-                        _site.GetStaffNameAndNumbers().AddNewNameAndNumber((data[0], data[1]));
-                        data.RemoveRange(0, 2);
-                    }
-                }
-                allSites.Add(_site);
-
                 siteComboBox.Items.Add(_site.SiteName);
             }
         }

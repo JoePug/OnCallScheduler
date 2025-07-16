@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace OnCallScheduler
 {
-    class Sites
+    public class Sites
     {
         //this class will interact with the Main form
         //responsible for managing the current site and all it's data and feeds it to the main form
