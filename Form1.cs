@@ -1,8 +1,6 @@
 
 
 
-//using System.Xml.Linq;
-
 namespace OnCallScheduler
 {
     public partial class MainForm : Form
@@ -96,6 +94,7 @@ namespace OnCallScheduler
             selectedSiteIndex = siteComboBox.SelectedIndex;
             site = allSites[selectedSiteIndex];
 
+            bottomOfPageTextBox.Text = site.CommentToPrint;
             LoadDateIntoTextBoxes();
             if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0)
             {
@@ -118,7 +117,7 @@ namespace OnCallScheduler
         {
             allSites = loadSaveData.GetDataFromFiles();
 
-            foreach (var _site in allSites) 
+            foreach (var _site in allSites)
             {
                 siteComboBox.Items.Add(_site.SiteName);
             }
@@ -176,6 +175,7 @@ namespace OnCallScheduler
             siteComboBox.SelectedIndex = -1;
             siteComboBox.Text = "";
             selectedSiteIndex = -1;
+            bottomOfPageTextBox.Text = string.Empty;
         }
 
         private bool TestForValidDates()
@@ -351,7 +351,7 @@ namespace OnCallScheduler
             }
 
             site.CurrentSchedule();
-            LoadDatesIntoSchedule(); 
+            LoadDatesIntoSchedule();
         }
 
         private void sortUpButton_Click(object sender, EventArgs e)
@@ -404,5 +404,18 @@ namespace OnCallScheduler
         }
 
         #endregion
+
+        private void bottomOfPageTextBox_KeyDown(object sender, KeyEventArgs e)
+        {            
+            if (selectedSiteIndex == -1) return;
+
+            if (e.KeyCode == Keys.Enter)
+            {
+                site.CommentToPrint = bottomOfPageTextBox.Text;
+                MessageBox.Show("Changed");
+
+                //Todo: Save to file
+            }
+        }
     }
 }

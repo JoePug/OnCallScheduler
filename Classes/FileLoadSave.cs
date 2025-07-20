@@ -27,11 +27,12 @@ namespace OnCallScheduler
                 _site.Day = int.Parse(data[1]);
                 _site.Year = int.Parse(data[2]);
                 _site.SiteName = data[3];
-                _site.GetStaffNameAndNumbers().LastSavedTopOfPage = int.Parse(data[4]);
+                _site.CommentToPrint = data[4];
+                _site.GetStaffNameAndNumbers().LastSavedTopOfPage = int.Parse(data[5]);
 
-                int numOfStaff = int.Parse(data[5]);
+                int numOfStaff = int.Parse(data[6]);
 
-                data.RemoveRange(0, 6);
+                data.RemoveRange(0, 7);
 
                 if (numOfStaff > 0)
                 {
@@ -54,6 +55,7 @@ namespace OnCallScheduler
 
                 "7", "18", "2025",   //Start date MM-DD-YYYY
                 "Carbondale/Dunmore",  //SiteName
+                "The New Shift Begins at 8 AM of Fridays, if you want.", //Comment to print at the bottom of the page.
                 "0",                    //Index of first staff in list
                 "4",                   //Number of Staff Names and Numbers
                 "Jamie Maher", "(570)280-4194",  //Staff Names and Numbers
@@ -63,6 +65,7 @@ namespace OnCallScheduler
 
                 "7", "18", "2025",   //Start date MM-DD-YYYY
                 "Test Site",  //SiteName
+                "The New Shift Begins at 8 AM of Fridays, or never.", //Comment to print at the bottom of the page.
                 "0",                    //Index of first staff in list
                 "4",                   //Number of Staff Names and Numbers
                 "1111111111", "(111)111-1111",  //Staff Names and Numbers

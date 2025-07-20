@@ -59,6 +59,9 @@
             dayLabel = new Label();
             monthLabel = new Label();
             resetOrderButton = new Button();
+            bottomOfPageTextBox = new TextBox();
+            BottomOfPageCommentCheckBox = new CheckBox();
+            pressEnterToSaveLabel = new Label();
             SuspendLayout();
             // 
             // displayListView
@@ -358,11 +361,44 @@
             resetOrderButton.UseVisualStyleBackColor = true;
             resetOrderButton.Click += resetOrderButton_Click;
             // 
+            // bottomOfPageTextBox
+            // 
+            bottomOfPageTextBox.Location = new Point(264, 476);
+            bottomOfPageTextBox.Name = "bottomOfPageTextBox";
+            bottomOfPageTextBox.Size = new Size(510, 23);
+            bottomOfPageTextBox.TabIndex = 30;
+            bottomOfPageTextBox.Text = "The New Shift Begins at 8 AM of Fridays.";
+            bottomOfPageTextBox.KeyDown += bottomOfPageTextBox_KeyDown;
+            // 
+            // BottomOfPageCommentCheckBox
+            // 
+            BottomOfPageCommentCheckBox.AutoSize = true;
+            BottomOfPageCommentCheckBox.Checked = true;
+            BottomOfPageCommentCheckBox.CheckState = CheckState.Checked;
+            BottomOfPageCommentCheckBox.Location = new Point(57, 480);
+            BottomOfPageCommentCheckBox.Name = "BottomOfPageCommentCheckBox";
+            BottomOfPageCommentCheckBox.Size = new Size(191, 19);
+            BottomOfPageCommentCheckBox.TabIndex = 31;
+            BottomOfPageCommentCheckBox.Text = "Add Comment To Printed Page";
+            BottomOfPageCommentCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // pressEnterToSaveLabel
+            // 
+            pressEnterToSaveLabel.AutoSize = true;
+            pressEnterToSaveLabel.Location = new Point(417, 511);
+            pressEnterToSaveLabel.Name = "pressEnterToSaveLabel";
+            pressEnterToSaveLabel.Size = new Size(200, 15);
+            pressEnterToSaveLabel.TabIndex = 32;
+            pressEnterToSaveLabel.Text = "Press 'ENTER' To UPDATE Comment.";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(835, 471);
+            ClientSize = new Size(835, 559);
+            Controls.Add(pressEnterToSaveLabel);
+            Controls.Add(BottomOfPageCommentCheckBox);
+            Controls.Add(bottomOfPageTextBox);
             Controls.Add(resetOrderButton);
             Controls.Add(monthLabel);
             Controls.Add(dayLabel);
@@ -433,5 +469,9 @@
         private Label dayLabel;
         private Label monthLabel;
         private Button resetOrderButton;
+        private Label label1;
+        private TextBox bottomOfPageTextBox;
+        private CheckBox BottomOfPageCommentCheckBox;
+        private Label pressEnterToSaveLabel;
     }
 }
