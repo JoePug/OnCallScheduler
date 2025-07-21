@@ -115,7 +115,7 @@ namespace OnCallScheduler
 
         private void LoadDataFromFile()
         {
-            allSites = loadSaveData.GetDataFromFiles();
+            allSites = loadSaveData.LoadDataFromFiles();
 
             foreach (var _site in allSites)
             {
