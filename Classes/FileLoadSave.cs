@@ -22,6 +22,9 @@ namespace OnCallScheduler
             data = CreateDataList(_sites);
 
             //TODO  - create save files
+            IEnumerable<string> lines = data;
+
+            File.WriteAllLines(@"D:\Junk1\OnCallScheduler.dat", lines);            //works
         }
 
         private List<string> LoadTestData()

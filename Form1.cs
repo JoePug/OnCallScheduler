@@ -29,6 +29,7 @@ namespace OnCallScheduler
             // LoadSitesIntoSiteBox();
 
             LoadDataFromFile();
+            //loadSaveData.SaveDataToFiles(allSites);
         }
 
         #endregion
