@@ -4,16 +4,41 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.LinkLabel;
 
 namespace OnCallScheduler
 {
     public class FileLoadSave
     {
+        private string path = AppDomain.CurrentDomain.BaseDirectory;
+        private string testPath = @"D:\Junk1\";
+        private string fileName = @"OnCallScheduler";
+        private string ext = @".dat";
+        private string backupExt = @".bak";
+
         public List<Sites> LoadDataFromFiles()
         {
-            //Todo - Create load files
+            //Todo - Create load file
+            string[] lines = [];
 
-            return GetDataFromList(LoadTestData());  //returning test data for now
+            try
+            {
+                lines = File.ReadAllLines(testPath + fileName + ext);            //works               
+                
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message); //Todo - something 
+                return new List<Sites>();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);    //Todo - something 
+                return new List<Sites>();
+            }
+
+            //return GetDataFromList(LoadTestData());  //returning test data for now
+            return GetDataFromList(new List<string>(lines));
         }
 
         public void SaveDataToFiles(List<Sites> _sites)
@@ -24,7 +49,19 @@ namespace OnCallScheduler
             //TODO  - create save files
             IEnumerable<string> lines = data;
 
-            File.WriteAllLines(@"D:\Junk1\OnCallScheduler.dat", lines);            //works
+            try
+            {
+                File.WriteAllLines(testPath + fileName + ext, lines);            //works
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(ex.Message); //Todo - something 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);    //Todo - something 
+            }
+
         }
 
         private List<string> LoadTestData()
@@ -114,6 +151,8 @@ namespace OnCallScheduler
                 data.Add(_site.GetStaffNameAndNumbers().LastSavedTopOfPage.ToString());
 
                 int numOfStaff = _site.GetStaffNameAndNumbers().GetStaffNamesCount();
+                data.Add(numOfStaff.ToString());
+                
                 if (numOfStaff > 0)
                 {
                     for (int j = 0; j < numOfStaff; j++)
