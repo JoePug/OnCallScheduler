@@ -15,15 +15,23 @@ namespace OnCallScheduler
         private string fileName = @"OnCallScheduler";
         private string ext = @".dat";
         private string backupExt = @".bak";
+        private string saveFolder = @"Data\";
+        private string workPath = string.Empty;
+        private bool backupFileExists = false;
+
+        public FileLoadSave()
+        {
+            //workPath = path + saveFolder;  //uncomment for production
+            workPath = testPath + saveFolder;   //uncomment for testing
+        }
 
         public List<Sites> LoadDataFromFiles()
         {
-            //Todo - Create load file
             string[] lines = [];
 
             try
             {
-                lines = File.ReadAllLines(testPath + fileName + ext);            //works               
+                lines = File.ReadAllLines(workPath + fileName + ext);            //works               
                 
             }
             catch (IOException ex)
@@ -45,13 +53,12 @@ namespace OnCallScheduler
         {
             List<string> data = new List<string>();
             data = CreateDataList(_sites);
-
-            //TODO  - create save files
+            
             IEnumerable<string> lines = data;
 
             try
             {
-                File.WriteAllLines(testPath + fileName + ext, lines);            //works
+                File.WriteAllLines(workPath + fileName + ext, lines);            //works
             }
             catch (IOException ex)
             {
@@ -62,6 +69,34 @@ namespace OnCallScheduler
                 MessageBox.Show(ex.Message);    //Todo - something 
             }
 
+        }
+
+        public bool DirAndFileExists()
+        {
+            bool _file = false;
+
+            if(!Directory.Exists(workPath + saveFolder))
+            {
+                Directory.CreateDirectory(workPath + saveFolder); //should probably try-catch this also
+            }
+
+            if(File.Exists(workPath + fileName + ext))
+            {
+                _file = true;
+            }
+
+            if (File.Exists(workPath + fileName + backupExt))
+            {
+                backupFileExists = true;
+            }
+
+            return _file;    
+        }
+
+        private void ManageBackup()
+        {
+            //use this to create backups of the previous saved files
+            //also to revert to a backup if regular file fails to load
         }
 
         private List<string> LoadTestData()

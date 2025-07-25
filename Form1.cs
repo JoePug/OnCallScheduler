@@ -23,13 +23,12 @@ namespace OnCallScheduler
 
         private void StartUpStuff()
         {
-            //check for first time and ask for data if it is
-            // get startup month, day and year and staff that is the first on the page
-            //allSites.Add(site);// just to have something there for now. Fix later when you move test data to it's own class.
-            // LoadSitesIntoSiteBox();
+            if(loadSaveData.DirAndFileExists())
+            {
+                LoadDataFromFile();
+                //loadSaveData.SaveDataToFiles(allSites);  //using to save test data
+            }
 
-            LoadDataFromFile();
-            //loadSaveData.SaveDataToFiles(allSites);
         }
 
         #endregion
