@@ -28,23 +28,47 @@ namespace OnCallScheduler
         public List<Sites> LoadDataFromFiles()
         {
             string[] lines = [];
+            bool works = false;
 
-            try
-            {
-                lines = File.ReadAllLines(workPath + fileName + ext);            //works               
-                
+            while (!works)
+            { 
+                try
+                {
+                    lines = File.ReadAllLines(workPath + fileName + ext);            //works               
+                    works = true;
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    ManageBackup(false);
+                    try
+                    {
+                        lines = File.ReadAllLines(workPath + fileName + ext);            //works               
+                        works = true;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Loading Data Failed!");
+                        return new List<Sites>();
+                    }
+                    return new List<Sites>();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);    
+                    ManageBackup(false);
+                    try
+                    {
+                        lines = File.ReadAllLines(workPath + fileName + ext);            //works               
+                        works = true;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Loading Data Failed!");
+                        return new List<Sites>();
+                    }
+                }
             }
-            catch (IOException ex)
-            {
-                MessageBox.Show(ex.Message); //Todo - something 
-                return new List<Sites>();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);    //Todo - something 
-                return new List<Sites>();
-            }
-
             //return GetDataFromList(LoadTestData());  //returning test data for now
             return GetDataFromList(new List<string>(lines));
         }
@@ -56,19 +80,45 @@ namespace OnCallScheduler
             
             IEnumerable<string> lines = data;
 
-            try
-            {
-                File.WriteAllLines(workPath + fileName + ext, lines);            //works
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show(ex.Message); //Todo - something 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);    //Todo - something 
-            }
+            ManageBackup(true);
+            bool works = false;
 
+            while (!works)
+            {
+                try
+                {
+                    File.WriteAllLines(workPath + fileName + ext, lines);
+                    works = true; //works
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    try
+                    {
+                        File.WriteAllLines(workPath + fileName + ext, lines);
+                        works = true; //works
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Saving Data Failed!");
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    try
+                    {
+                        File.WriteAllLines(workPath + fileName + ext, lines);
+                        works = true; //works
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Saving Data Failed!");
+                        return;
+                    }
+                }
+            }
         }
 
         public bool DirAndFileExists()
@@ -93,10 +143,39 @@ namespace OnCallScheduler
             return _file;    
         }
 
-        private void ManageBackup()
+        private void ManageBackup(bool createBackup)
         {
             //use this to create backups of the previous saved files
             //also to revert to a backup if regular file fails to load
+
+            if(createBackup) //called before saving file
+            {
+                if(backupFileExists) //if true assume regular files exists too
+                {
+                    File.Move(workPath + fileName + ext, workPath + fileName + backupExt, overwrite: true);   //remane current file to backup file
+                }
+                else //if no backup, need to check for regular file existing also
+                {
+                    if (File.Exists(workPath + fileName + ext))
+                        File.Move(workPath + fileName + ext, workPath + fileName + backupExt);  //rename current file to backup file
+                }
+            }
+            else   //something went wrong and you need to revert to the backup file
+            {                
+                if (File.Exists(workPath + fileName + ext) && File.Exists(workPath + fileName + backupExt))
+                {
+                    File.Move(workPath + fileName + ext, workPath + fileName + @".bad", overwrite: true);
+                    File.Copy(workPath + fileName + backupExt, workPath + fileName + ext, overwrite: true);
+                }
+                else
+                {
+                    if (File.Exists(workPath + fileName + ext))
+                        File.Move(workPath + fileName + ext, workPath + fileName + @".bad", overwrite: true);
+
+                    if (File.Exists(workPath + fileName + backupExt))
+                        File.Copy(workPath + fileName + backupExt, workPath + fileName + ext, overwrite: true);
+                }
+            }    
         }
 
         private List<string> LoadTestData()
