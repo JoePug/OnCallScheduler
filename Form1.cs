@@ -23,7 +23,7 @@ namespace OnCallScheduler
 
         private void StartUpStuff()
         {
-            if(loadSaveData.DirAndFileExists())
+            if (loadSaveData.DirAndFileExists())
             {
                 LoadDataFromFile();
                 //loadSaveData.SaveDataToFiles(allSites);  //using to save test data
@@ -406,7 +406,7 @@ namespace OnCallScheduler
         #endregion
 
         private void bottomOfPageTextBox_KeyDown(object sender, KeyEventArgs e)
-        {            
+        {
             if (selectedSiteIndex == -1) return;
 
             if (e.KeyCode == Keys.Enter)
@@ -416,6 +416,12 @@ namespace OnCallScheduler
 
                 //Todo: Save to file
             }
+        }
+
+        private void printButton_Click(object sender, EventArgs e)
+        {
+            Printer print = new Printer(new DrawPage().CreateOnCallLog(site));
+            print.Print();
         }
     }
 }

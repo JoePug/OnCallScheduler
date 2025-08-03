@@ -1,54 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
+using System.Drawing.Printing;
 
 namespace OnCallScheduler
 {
     public class Printer
     {
+        private Bitmap bitmap;
+        private PrinterSettings printerSettings;
+        PrintDialog dialog = new PrintDialog();
+        int numOfCopies = 0;
 
-    }
-}
-/*
- using System.Drawing;
-using System.Drawing.Printing;
-
-public class BitmapPrinter
-{
-    private Bitmap bitmap;
-    private PrinterSettings printerSettings;
-
-    public BitmapPrinter(Bitmap bmp, PrinterSettings settings = null)
-    {
-        bitmap = bmp;
-        printerSettings = settings ?? new PrinterSettings(); // fallback to default if not provided
-    }
-
-    public void Print()
-    {
-        var printDoc = new PrintDocument();
-        printDoc.PrinterSettings = printerSettings;
-        printDoc.PrintPage += (sender, e) =>
+        public Printer(Bitmap bmp, PrinterSettings settings = null)
         {
-            e.Graphics.DrawImage(bitmap, e.MarginBounds);
-        };
-        printDoc.Print();
+            bitmap = bmp;
+            printerSettings = settings ?? SetPrinter();
+            numOfCopies = printerSettings.Copies;
+        }
+
+        public PrinterSettings SetPrinter()
+        {
+            dialog.ShowDialog();
+            return dialog.PrinterSettings;
+        }
+
+        public void Print()
+        {
+            int currentPage = 0;
+            var printDoc = new PrintDocument();
+            printDoc.PrinterSettings = printerSettings;
+            printDoc.PrinterSettings.Copies = 1;
+            printDoc.DocumentName = "On-Call_Log";
+
+            printDoc.PrintPage += (sender, e) =>
+            {
+                e.Graphics?.DrawImage(bitmap, e.MarginBounds);
+                currentPage++;
+                e.HasMorePages = currentPage < numOfCopies;
+            };
+
+            printDoc.Print();
+        }
     }
 }
-
-Bitmap rendered = new MyBitmapGenerator().CreateDocumentImage();
-var printer = new BitmapPrinter(rendered);
-printer.Print();
-
-
-
-*/
-
-
 /*
-  // X axis is 30 to 800
+        // X axis is 30 to 800
         // Y axis is 30 to 1030   
 
         private PrintDocument pd = new PrintDocument();

@@ -159,6 +159,7 @@
             printButton.TabIndex = 6;
             printButton.Text = "Print";
             printButton.UseVisualStyleBackColor = true;
+            printButton.Click += printButton_Click;
             // 
             // exitButton
             // 
