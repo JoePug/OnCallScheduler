@@ -2,20 +2,35 @@
 
 namespace OnCallScheduler
 {
-    public class DrawPage
+    public class DrawPage : IDisposable
     {
         //takes a Site class, uses it then draws the page with the information from Site
-        //do I want this class to send it to the printer or just return the image?
+        int x = 0;
+        int y = 0;
+        Bitmap bmp;
+        Graphics g;
+        Sites? site;
 
-        public Bitmap CreateOnCallLog(Sites site) //only gonna draw one page so no need to make it do anything else
+        public DrawPage()
         {
-            Bitmap bmp = new Bitmap(850, 1100);
-            using Graphics g = Graphics.FromImage(bmp);
-
+            bmp = new Bitmap(850, 1100);
+            g = Graphics.FromImage(bmp);
             g.Clear(Color.White);
-            g.DrawRectangle(new Pen(Color.Black), 30, 30, 770, 1040);
+        }
 
-            return bmp;
+        public Bitmap CreateOnCallLog(Sites _site) //only gonna draw one page so no need to make it do anything else
+        {  
+            site = _site;
+
+            g.DrawRectangle(new Pen(Color.Black), 10, 10, 830, 1080); //Test line to draw a box on the page
+
+            return (Bitmap)bmp.Clone();
+        }
+
+        public void Dispose()
+        {
+            g?.Dispose();
+            bmp?.Dispose();
         }
 
     }

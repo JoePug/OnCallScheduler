@@ -9,8 +9,9 @@ namespace OnCallScheduler
         private PrinterSettings printerSettings;
         PrintDialog dialog = new PrintDialog();
         int numOfCopies = 0;
+        bool okToPrint = true;
 
-        public Printer(Bitmap bmp, PrinterSettings settings = null)
+        public Printer(Bitmap bmp, PrinterSettings? settings = null)
         {
             bitmap = bmp;
             printerSettings = settings ?? SetPrinter();
@@ -19,7 +20,7 @@ namespace OnCallScheduler
 
         public PrinterSettings SetPrinter()
         {
-            dialog.ShowDialog();
+            if(dialog.ShowDialog() == DialogResult.OK) okToPrint = true; else okToPrint = false;
             return dialog.PrinterSettings;
         }
 
@@ -33,12 +34,13 @@ namespace OnCallScheduler
 
             printDoc.PrintPage += (sender, e) =>
             {
-                e.Graphics?.DrawImage(bitmap, e.MarginBounds);
+                e.Graphics?.DrawImage(bitmap, e.PageBounds);
                 currentPage++;
                 e.HasMorePages = currentPage < numOfCopies;
             };
 
-            printDoc.Print();
+            if(okToPrint) printDoc.Print();
+            bitmap.Dispose(); //never forget to do this when done with the bitmap
         }
     }
 }

@@ -420,6 +420,8 @@ namespace OnCallScheduler
 
         private void printButton_Click(object sender, EventArgs e)
         {
+            if(selectedSiteIndex == -1) return; 
+
             Printer print = new Printer(new DrawPage().CreateOnCallLog(site));
             print.Print();
         }
