@@ -420,10 +420,18 @@ namespace OnCallScheduler
 
         private void printButton_Click(object sender, EventArgs e)
         {
-            if(selectedSiteIndex == -1) return; 
+            if (selectedSiteIndex == -1) return;
 
             Printer print = new Printer(new DrawPage().CreateOnCallLog(site));
             print.Print();
+        }
+
+        private void BottomOfPageCommentCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            //todo - return when no site is active
+            //todo - always update when active site changes or no site is available.
+            
+            site.CommentActive = BottomOfPageCommentCheckBox.Checked;
         }
     }
 }

@@ -382,6 +382,7 @@
             BottomOfPageCommentCheckBox.TabIndex = 31;
             BottomOfPageCommentCheckBox.Text = "Add Comment To Printed Page";
             BottomOfPageCommentCheckBox.UseVisualStyleBackColor = true;
+            BottomOfPageCommentCheckBox.CheckedChanged += BottomOfPageCommentCheckBox_CheckedChanged;
             // 
             // pressEnterToSaveLabel
             // 

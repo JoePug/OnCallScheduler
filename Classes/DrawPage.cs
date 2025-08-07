@@ -44,11 +44,11 @@ namespace OnCallScheduler
         {
             x = 405;
             y = 30;
-            g.DrawString(text, theFont, brush, x - (g.MeasureString(text, theFont).Width / 2), y);
+            g.DrawString(text, theFont, brush, x - (g.MeasureString(text, theFont).Width / 2), y);  //  centered
 
             y += (int)g.MeasureString(text, theFont).Height;
             text = site.SiteName.ToUpper();
-            g.DrawString(text, theFont, brush, x - (g.MeasureString(text, theFont).Width / 2), y);
+            g.DrawString(text, theFont, brush, x - (g.MeasureString(text, theFont).Width / 2), y);  //  centered
 
             y += (int)g.MeasureString(text, theFont).Height;
             text = site.Year.ToString();
@@ -66,24 +66,26 @@ namespace OnCallScheduler
 
             text = "April 4th - April 10th - Sandy O'Connell";
 
+            //todo = just stubbed in for now to get them on the page
+
             for (int i = 0; i < 15; i++)
             {
                 g.DrawString(text, theFont, brush, x, y);
                 y += 55;
             }
-
+            
         }
 
         private void WriteBottomLine()
         {
-            //Todo - return if comment is not wanted
+            if(site?.CommentActive == false ) return;
+
             x = 405;
             y = 1010;
             text = site.CommentToPrint;
             theFont = new Font("Comic Sans MS", 12, FontStyle.Bold);
 
-            g.DrawString(text, theFont, brush, x - (g.MeasureString(text, theFont).Width / 2), y);
-
+            g.DrawString(text, theFont, brush, x - (g.MeasureString(text, theFont).Width / 2), y); //  centered
         }
 
         public void Dispose()

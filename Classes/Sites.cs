@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,9 @@ namespace OnCallScheduler
         public int YearFromDateHandler { get; set; } = 2025; // 2025 for now
         public string[] CurrentPageOfLines { get; set; } = new string[15];
         public (string, string)[] CurrentPageOfNamesAndNumbers { get; set; } = new (string, string)[15];
-        public string CommentToPrint { get; set; } = "The New Shift Begins at 8 AM of Fridays.";
-        private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates        
+        public string CommentToPrint { get; set; } = "The New Shift Begins at 8 AM on Fridays.";
+        private const int daysPerPage = 105; //add or subtract 105 days to go forward or back 15 dates
+        public bool CommentActive {  get; set; } = true; //defaults to true on startup
 
         private StaffNameAndNumbers staff = new StaffNameAndNumbers();
 
