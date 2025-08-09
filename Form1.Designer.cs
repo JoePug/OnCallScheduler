@@ -368,7 +368,6 @@
             bottomOfPageTextBox.Name = "bottomOfPageTextBox";
             bottomOfPageTextBox.Size = new Size(510, 23);
             bottomOfPageTextBox.TabIndex = 30;
-            bottomOfPageTextBox.Text = "The New Shift Begins at 8 AM of Fridays.";
             bottomOfPageTextBox.KeyDown += bottomOfPageTextBox_KeyDown;
             // 
             // BottomOfPageCommentCheckBox

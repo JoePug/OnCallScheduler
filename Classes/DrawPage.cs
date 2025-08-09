@@ -25,7 +25,7 @@ namespace OnCallScheduler
         {  
             site = _site;
 
-            g.DrawRectangle(new Pen(Color.Black), 30, 30, 750, 1000); //Temp Box - Draw within this box to be safe with most printers
+            g.DrawRectangle(new Pen(Color.Black), 30, 30, 775, 1000); //Temp Box - Draw within this box to be safe with most printers
 
             WriteData();
 
@@ -36,7 +36,7 @@ namespace OnCallScheduler
         {
             WriteTopPart();
             WriteFifteenDates();
-
+            WriteStaffNameAndNumbers();
             WriteBottomLine();
         }
 
@@ -86,6 +86,35 @@ namespace OnCallScheduler
             theFont = new Font("Comic Sans MS", 12, FontStyle.Bold);
 
             g.DrawString(text, theFont, brush, x - (g.MeasureString(text, theFont).Width / 2), y); //  centered
+        }
+
+        private void WriteStaffNameAndNumbers()
+        {
+            List<(string, string)> staff = site.GetStaffNameAndNumbers().GetNameAndNumbersList();
+            int count = staff.Count();
+
+            theFont = new Font("Comic Sans MS", 15, FontStyle.Bold);
+            text = "On Call Staff";
+            x = 595;
+            y = 150;
+
+            g.DrawString(text, theFont, brush, x, y);
+
+            theFont = new Font("Comic Sans MS", 10, FontStyle.Bold);
+            int height = (int)g.MeasureString(text, theFont).Height * count;
+
+            // Height of rectangle will confrom to lines of text. But it never checks for the end of page.
+            g.DrawRectangle(new Pen(Color.Black), 520, 180, 280, height);
+
+            y = 180;
+            foreach((string, string) name in staff)
+            {
+                text = name.Item1.Split(' ')[0];
+                g.DrawString(text, theFont, brush, 535, y);
+                text = name.Item2;
+                g.DrawString(text, theFont, brush, 680, y);
+                y += (int)g.MeasureString(text, theFont).Height;
+            }
         }
 
         public void Dispose()

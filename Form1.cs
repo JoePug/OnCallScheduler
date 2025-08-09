@@ -27,6 +27,8 @@ namespace OnCallScheduler
             {
                 LoadDataFromFile();
                 //loadSaveData.SaveDataToFiles(allSites);  //using to save test data
+
+                if (allSites.Count > 0) siteComboBox.SelectedIndex = 0;
             }
 
         }
@@ -95,6 +97,9 @@ namespace OnCallScheduler
             site = allSites[selectedSiteIndex];
 
             bottomOfPageTextBox.Text = site.CommentToPrint;
+            BottomOfPageCommentCheckBox.Checked = site.CommentActive;
+
+
             LoadDateIntoTextBoxes();
             if (site.GetStaffNameAndNumbers().GetStaffNamesCount() > 0)
             {
@@ -422,15 +427,20 @@ namespace OnCallScheduler
         {
             if (selectedSiteIndex == -1) return;
 
+            if (site.GetStaffNameAndNumbers().GetStaffNamesCount() == 0)
+            {
+                MessageBox.Show("You Need At Least 1 Staff To Print!");
+                return;
+            }
+
             Printer print = new Printer(new DrawPage().CreateOnCallLog(site));
             print.Print();
         }
 
         private void BottomOfPageCommentCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            //todo - return when no site is active
-            //todo - always update when active site changes or no site is available.
-            
+            if (selectedSiteIndex == -1) return;
+
             site.CommentActive = BottomOfPageCommentCheckBox.Checked;
         }
     }
