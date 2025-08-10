@@ -11,7 +11,8 @@ namespace OnCallScheduler
     public class FileLoadSave
     {
         private string path = AppDomain.CurrentDomain.BaseDirectory;
-        private string testPath = @"D:\Junk1\";
+        //private string testPath = @"D:\Junk1\";                   //Desktop
+        private string testPath = @"C:\Users\Joe\Documents\Junk1\";  //laptop
         private string fileName = @"OnCallScheduler";
         private string ext = @".dat";
         private string backupExt = @".bak";
@@ -125,9 +126,9 @@ namespace OnCallScheduler
         {
             bool _file = false;
 
-            if(!Directory.Exists(workPath + saveFolder))
+            if(!Directory.Exists(workPath))
             {
-                Directory.CreateDirectory(workPath + saveFolder); //should probably try-catch this also
+                Directory.CreateDirectory(workPath); //should probably try-catch this also                
             }
 
             if(File.Exists(workPath + fileName + ext))
@@ -186,7 +187,7 @@ namespace OnCallScheduler
 
                 "7", "18", "2025",   //Start date MM-DD-YYYY
                 "Carbondale/Dunmore",  //SiteName
-                "The New Shift Begins at 8 AM of Fridays, if you want.", //Comment to print at the bottom of the page.
+                "The New Shift Begins at 8 AM on Fridays, if you want.", //Comment to print at the bottom of the page.
                 "0",                    //Index of first staff in list
                 "4",                   //Number of Staff Names and Numbers
                 "Jamie Maher", "(570)280-4194",  //Staff Names and Numbers
@@ -196,7 +197,7 @@ namespace OnCallScheduler
 
                 "7", "18", "2025",   //Start date MM-DD-YYYY
                 "Test Site",  //SiteName
-                "The New Shift Begins at 8 AM of Fridays, or never.", //Comment to print at the bottom of the page.
+                "The New Shift Begins at 8 AM on Fridays, or never.", //Comment to print at the bottom of the page.
                 "0",                    //Index of first staff in list
                 "4",                   //Number of Staff Names and Numbers
                 "1111111111", "(111)111-1111",  //Staff Names and Numbers
