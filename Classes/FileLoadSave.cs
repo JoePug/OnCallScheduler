@@ -11,8 +11,8 @@ namespace OnCallScheduler
     public class FileLoadSave
     {
         private string path = AppDomain.CurrentDomain.BaseDirectory;
-        //private string testPath = @"D:\Junk1\";                   //Desktop
-        private string testPath = @"C:\Users\Joe\Documents\Junk1\";  //laptop
+        private string testPath = @"D:\Junk1\";                   //Desktop
+        //private string testPath = @"C:\Users\Joe\Documents\Junk1\";  //laptop
         private string fileName = @"OnCallScheduler";
         private string ext = @".dat";
         private string backupExt = @".bak";
