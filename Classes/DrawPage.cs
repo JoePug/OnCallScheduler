@@ -68,14 +68,13 @@ namespace OnCallScheduler
         {
             x = 30;
             y = 180;
-            theFont = new Font("Comic Sans MS", 15 / dpiScale, FontStyle.Bold);
+            theFont = new Font("Comic Sans MS", 14 / dpiScale, FontStyle.Bold);            
 
-            text = "April 4th - April 10th - Sandy O'Connell";
-
-            //todo = just stubbed in for now to get them on the page
+            //todo = Need to make it so that the st, nd, rd th are all smaller.
 
             for (int i = 0; i < 15; i++)
             {
+                text = site.CurrentPageOfLines[i] + " - " + site.CurrentPageOfNamesAndNumbers[i].Item1;
                 g.DrawString(text, theFont, brush, x, y);
                 y += 55;
             }
