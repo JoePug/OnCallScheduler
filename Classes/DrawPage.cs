@@ -68,17 +68,55 @@ namespace OnCallScheduler
         {
             x = 30;
             y = 180;
-            theFont = new Font("Comic Sans MS", 14 / dpiScale, FontStyle.Bold);            
-
-            //todo = Need to make it so that the st, nd, rd th are all smaller.
+            theFont = new Font("Comic Sans MS", 14 / dpiScale, FontStyle.Bold);
+            string[] splitText = [];    
 
             for (int i = 0; i < 15; i++)
             {
-                text = site.CurrentPageOfLines[i] + " - " + site.CurrentPageOfNamesAndNumbers[i].Item1;
-                g.DrawString(text, theFont, brush, x, y);
+                splitText = SplitString(site.CurrentPageOfLines[i], "- " + site.CurrentPageOfNamesAndNumbers[i].Item1);
+                for (int j = 0; j < 8; j++)
+                {
+
+                    if (j == 2 || j == 6)
+                    {
+                        //J = 2 or 6, switch font and after switch back, subtract maybe 5 from x to move remove space before suffix.
+                        theFont = new Font("Comic Sans MS", 8 / dpiScale, FontStyle.Bold);
+                        x -= 5;
+                        g.DrawString(splitText[j], theFont, brush, x, y);
+                        x += (int)g.MeasureString(splitText[j], theFont).Width;
+                        theFont = new Font("Comic Sans MS", 14 / dpiScale, FontStyle.Bold);
+                    }
+                    else
+                    {
+                        g.DrawString(splitText[j], theFont, brush, x, y);
+                        x += (int)g.MeasureString(splitText[j], theFont).Width;
+                    }
+                    
+                    
+                }
+                
                 y += 55;
+                x = 30;
             }
             
+        }
+
+        private string[] SplitString(string text1, string text2)
+        {
+            string[] first = [];
+            string[] second = new string[8];
+
+            first = text1.Split(' ');                               
+            second[0] = first[0];                             //month
+            second[1] = first[1].Substring(0, first[1].Length - 2); //day
+            second[2] = first[1].Substring(first[1].Length - 2);    //suffix
+            second[3] = "-";                                      
+            second[4] =  first[3];                            //second month
+            second[5] = first[4].Substring(0, first[4].Length - 2); //second day
+            second[6] = first[4].Substring(first[4].Length - 2);    //second suffix  
+            second[7] = text2;
+
+            return second;
         }
 
         private void WriteBottomLine()
