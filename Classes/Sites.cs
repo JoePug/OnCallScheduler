@@ -34,8 +34,8 @@ namespace OnCallScheduler
         {
             if (reloadCurrentStaff)
             {
-                CurrentPageOfNamesAndNumbers = staff.ReloadPageChangedIndex(); //todo - CurrentStaff needs to be saved as to remember the index of first on page 
-            }                                     //when switching sites and reloading at startup. 
+                CurrentPageOfNamesAndNumbers = staff.ReloadPageChangedIndex(); 
+            } 
             else
             {
                 CurrentPageOfNamesAndNumbers = staff.GetCurrnetNamesAgain();

@@ -433,6 +433,7 @@
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "On-Call Scheduler - c 2025 - Joseph A. Pugliese";
+            FormClosing += MainForm_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

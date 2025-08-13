@@ -23,14 +23,13 @@ namespace OnCallScheduler
             //g.PageUnit = GraphicsUnit.Point; //not working for me
             //g.PageScale = 1.0f;
             dpiScale = g.DpiY / 96f;  // 96 is the default DPI
-
         }
 
         public Bitmap CreateOnCallLog(Sites _site) //only gonna draw one page so no need to make it do anything else
         {  
             site = _site;
 
-            g.DrawRectangle(new Pen(Color.Black), 30, 30, 775, 1000); //Temp Box - Draw within this box to be safe with most printers
+            //g.DrawRectangle(new Pen(Color.Black), 30, 30, 775, 1000); //Temp Box - Draw within this box to be safe with most printers
 
             WriteData();
 
@@ -90,15 +89,12 @@ namespace OnCallScheduler
                     {
                         g.DrawString(splitText[j], theFont, brush, x, y);
                         x += (int)g.MeasureString(splitText[j], theFont).Width;
-                    }
-                    
-                    
+                    }      
                 }
                 
                 y += 55;
                 x = 30;
             }
-            
         }
 
         private string[] SplitString(string text1, string text2)
@@ -159,14 +155,6 @@ namespace OnCallScheduler
                 y += (int)g.MeasureString(text, theFont).Height;
             }
         }
-
-        //If I want to bother with using this instead of just ading / dpiScale to the fontsize
-        //public static Font GetDpiScaledFont(Graphics g, string fontName, float baseSize, FontStyle style)
-        //{
-        //    float dpiScale = g.DpiY / 96f;
-        //    return new Font(fontName, baseSize / dpiScale, style);
-        //}
-        //Font theFont = GetDpiScaledFont(g, "Comic Sans MS", 16, FontStyle.Bold | FontStyle.Underline);
 
         public void Dispose()
         {

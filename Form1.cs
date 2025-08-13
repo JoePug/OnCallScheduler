@@ -12,6 +12,7 @@ namespace OnCallScheduler
         private List<Sites> allSites = new List<Sites>();
         private int selectedSiteIndex = -1;
         private FileLoadSave loadSaveData = new FileLoadSave();
+        bool needToSave = false;
 
         #region Startup Methods
 
@@ -25,12 +26,9 @@ namespace OnCallScheduler
         {
             if (loadSaveData.DirAndFileExists())
             {
-                LoadDataFromFile();
-                //loadSaveData.SaveDataToFiles(allSites);  //using to save test data
-
+                LoadDataFromFile(); 
                 if (allSites.Count > 0) siteComboBox.SelectedIndex = 0;
             }
-
         }
 
         #endregion
@@ -52,7 +50,7 @@ namespace OnCallScheduler
 
             yearDisplayLabel.Text = "Year: " + site.GetYear();
 
-            LoadDateIntoTextBoxes(); //keep it????????????
+            LoadDateIntoTextBoxes(); //keep it???????????? Seems to be ok to leave it in.
         }
 
         private void LoadInfoIntoStaff()
@@ -128,12 +126,21 @@ namespace OnCallScheduler
             }
         }
 
+        private void SaveAllData()
+        {
+            //Todo - If all sites are deleted, then delete the saved file (or something like that)
+            
+            if (needToSave)
+            {
+                loadSaveData.SaveDataToFiles(allSites);
+                needToSave = false;
+            }
+        }
+
         #endregion
 
         #region Buttons
-
-        //todo checks so you can't use buttons if there is no data saved
-
+        
         private void nextScheduleButton_Click(object sender, EventArgs e)
         {
             if (selectedSiteIndex == -1) return;
@@ -141,6 +148,7 @@ namespace OnCallScheduler
             //add 105 days
             site.NextSchedule();
             LoadDatesIntoSchedule();
+            needToSave = true;
         }
 
         private void previousScheduleButton_Click(object sender, EventArgs e)
@@ -150,6 +158,7 @@ namespace OnCallScheduler
             //subtract 105 days
             site.PreviousSchedule();
             LoadDatesIntoSchedule();
+            needToSave = true;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -164,6 +173,7 @@ namespace OnCallScheduler
 
             site.CurrentSchedule();
             LoadDatesIntoSchedule();
+            needToSave = true;
         }
 
         #endregion
@@ -249,6 +259,7 @@ namespace OnCallScheduler
             siteComboBox.Text = "";
             ClearAndResetControls();
             LoadSitesIntoSiteBox();
+            needToSave = true;
         }
 
         private void editSiteButton_Click(object sender, EventArgs e)
@@ -282,6 +293,7 @@ namespace OnCallScheduler
 
             ClearAndResetControls();
             LoadSitesIntoSiteBox();
+            needToSave = true;
         }
 
         private void deleteSiteButton_Click(object sender, EventArgs e)
@@ -299,6 +311,7 @@ namespace OnCallScheduler
             allSites.RemoveAt(i);
             ClearAndResetControls();
             LoadSitesIntoSiteBox();
+            needToSave = true;
         }
 
         #endregion
@@ -320,6 +333,7 @@ namespace OnCallScheduler
 
             site.CurrentSchedule();
             LoadDatesIntoSchedule();
+            needToSave = true;
         }
 
         private void editStaffButton_Click(object sender, EventArgs e)
@@ -336,6 +350,7 @@ namespace OnCallScheduler
             staffListView.SelectedIndices.Clear();
             site.CurrentSchedule();
             LoadDatesIntoSchedule();
+            needToSave = true;
         }
 
         private void deleteStaffButton_Click(object sender, EventArgs e)
@@ -357,6 +372,7 @@ namespace OnCallScheduler
 
             site.CurrentSchedule();
             LoadDatesIntoSchedule();
+            needToSave = true;
         }
 
         private void sortUpButton_Click(object sender, EventArgs e)
@@ -381,7 +397,7 @@ namespace OnCallScheduler
             site.CurrentSchedule();
             LoadDatesIntoSchedule();
 
-            //todo save
+            needToSave = true;
         }
 
         private void sortDownButton_Click(object sender, EventArgs e)
@@ -405,7 +421,7 @@ namespace OnCallScheduler
             site.CurrentSchedule();
             LoadDatesIntoSchedule();
 
-            //todo save
+            needToSave = true;
         }
 
         #endregion
@@ -418,8 +434,7 @@ namespace OnCallScheduler
             {
                 site.CommentToPrint = bottomOfPageTextBox.Text;
                 MessageBox.Show("Changed");
-
-                //Todo: Save to file
+                needToSave = true;
             }
         }
 
@@ -435,6 +450,8 @@ namespace OnCallScheduler
 
             Printer print = new Printer(new DrawPage().CreateOnCallLog(site));
             print.Print();
+
+            SaveAllData();
         }
 
         private void BottomOfPageCommentCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -442,6 +459,11 @@ namespace OnCallScheduler
             if (selectedSiteIndex == -1) return;
 
             site.CommentActive = BottomOfPageCommentCheckBox.Checked;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveAllData();
         }
     }
 }

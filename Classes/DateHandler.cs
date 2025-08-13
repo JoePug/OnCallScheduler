@@ -40,7 +40,7 @@ namespace OnCallScheduler
             AddToLine(GetMonthName(date.Month)); //send the current month to AddToLine()
             AddToLine(" ");
             AddToLine(date.Day.ToString());
-            AddToLine(GetDaySuffix(date.Day)); //todo gonna have to figure out how to make this raised - probably in the page print
+            AddToLine(GetDaySuffix(date.Day));
             AddToLine(" - ");
             date = date.AddDays(6);
             AddToLine(GetMonthName(date.Month));
