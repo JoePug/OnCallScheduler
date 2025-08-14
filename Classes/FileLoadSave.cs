@@ -76,6 +76,12 @@ namespace OnCallScheduler
 
         public void SaveDataToFiles(List<Sites> _sites)
         {
+            if (_sites.Count == 0)
+            {
+                DeleteSaveFile();
+                return;
+            }
+
             List<string> data = new List<string>();
             data = CreateDataList(_sites);
             
@@ -144,12 +150,21 @@ namespace OnCallScheduler
             return _file;    
         }
 
+        private void DeleteSaveFile()
+        {
+            if (File.Exists(workPath + fileName + ext))
+            {
+                File.Delete(workPath + fileName + ext);
+            }
+        }
+
         private void ManageBackup(bool createBackup)
         {
             //use this to create backups of the previous saved files
             //also to revert to a backup if regular file fails to load
+            if (!File.Exists(workPath + fileName + ext)) return; //file can be deleted if all sites are deleted.
 
-            if(createBackup) //called before saving file
+            if (createBackup) //called before saving file
             {
                 if(backupFileExists) //if true assume regular files exists too
                 {

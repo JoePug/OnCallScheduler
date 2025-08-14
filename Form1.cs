@@ -128,8 +128,6 @@ namespace OnCallScheduler
 
         private void SaveAllData()
         {
-            //Todo - If all sites are deleted, then delete the saved file (or something like that)
-            
             if (needToSave)
             {
                 loadSaveData.SaveDataToFiles(allSites);
