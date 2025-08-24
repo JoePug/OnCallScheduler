@@ -18,6 +18,7 @@ namespace OnCallScheduler
         public DrawPage()
         {
             bmp = new Bitmap(850, 1100);
+            bmp.SetResolution(300,300);
             g = Graphics.FromImage(bmp);
             g.Clear(Color.White);
             //g.PageUnit = GraphicsUnit.Point; //not working for me
@@ -68,7 +69,7 @@ namespace OnCallScheduler
             x = 30;
             y = 180;
             theFont = new Font("Comic Sans MS", 14 / dpiScale, FontStyle.Bold);
-            string[] splitText = [];    
+            string[] splitText = [];
 
             for (int i = 0; i < 15; i++)
             {

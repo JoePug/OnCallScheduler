@@ -20,6 +20,7 @@ namespace OnCallScheduler
 
         public PrinterSettings SetPrinter()
         {
+            //If printer has an issue, it will crash here. Maybe use try/catch?
             if(dialog.ShowDialog() == DialogResult.OK) okToPrint = true; else okToPrint = false;
             return dialog.PrinterSettings;
         }
