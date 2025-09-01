@@ -228,6 +228,8 @@ namespace OnCallScheduler
 
         private void addSiteButton_Click(object sender, EventArgs e)
         {
+            //todo switch over to AddNewSiteAndDate Form
+
             if (siteComboBox.Text == string.Empty)
             {
                 MessageBox.Show("You need a name for this site(s)");
@@ -262,6 +264,8 @@ namespace OnCallScheduler
 
         private void editSiteButton_Click(object sender, EventArgs e)
         {
+            //todo - gonna have to use the AddNewSiteAndDate Form for this also.
+
             if (selectedSiteIndex == -1) return;
             if (siteComboBox.SelectedIndex == -1 && selectedSiteIndex == -1)
             {

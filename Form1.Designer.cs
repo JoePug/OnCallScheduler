@@ -141,6 +141,7 @@
             // 
             // siteComboBox
             // 
+            siteComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             siteComboBox.FormattingEnabled = true;
             siteComboBox.Location = new Point(470, 111);
             siteComboBox.Margin = new Padding(3, 2, 3, 2);
