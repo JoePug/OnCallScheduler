@@ -228,38 +228,26 @@ namespace OnCallScheduler
 
         private void addSiteButton_Click(object sender, EventArgs e)
         {
-            //todo switch over to AddNewSiteAndDate Form
-
-            if (siteComboBox.Text == string.Empty)
+            if (allSites.Count > 0)
             {
-                MessageBox.Show("You need a name for this site(s)");
-                return;
+                needToSave = true;
+                SaveAllData();
             }
 
-            DialogResult result = MessageBox.Show("Are you sure you want to create a site named: \n\n\t\t" + siteComboBox.Text,
-                                    "Create Site???", MessageBoxButtons.YesNo);
-            if (result == DialogResult.No) return;
+            ClearAndResetControls();
 
-            if (TestForValidDates() == false)
-            {
-                MessageBox.Show("Your starting dates are not valid.");
-                return;
-            }
+            AddNewSiteAndDate addSite = new AddNewSiteAndDate();
 
-            Sites _site = new Sites();
-            _site.SiteName = siteComboBox.Text.Trim();
+            addSite.ShowDialog();
 
-            //int.Parse should be fine as it will of been tested already
-            _site.Day = int.Parse(dayTextBox.Text);
-            _site.Month = int.Parse(monthTextBox.Text);
-            _site.Year = int.Parse(yearTextBox.Text);
+            if(addSite.Cancelled) return;
+
+            Sites _site = addSite.NewSite;
 
             allSites.Add(_site);
-
-            siteComboBox.Text = "";
-            ClearAndResetControls();
-            LoadSitesIntoSiteBox();
             needToSave = true;
+            SaveAllData();
+            LoadSitesIntoSiteBox();            
         }
 
         private void editSiteButton_Click(object sender, EventArgs e)

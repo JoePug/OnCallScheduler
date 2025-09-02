@@ -46,7 +46,7 @@
             siteNameLabel.Location = new Point(112, 28);
             siteNameLabel.Name = "siteNameLabel";
             siteNameLabel.Size = new Size(61, 15);
-            siteNameLabel.TabIndex = 0;
+            siteNameLabel.TabIndex = 6;
             siteNameLabel.Text = "Site Name";
             // 
             // addButton
@@ -54,7 +54,7 @@
             addButton.Location = new Point(293, 116);
             addButton.Name = "addButton";
             addButton.Size = new Size(84, 23);
-            addButton.TabIndex = 1;
+            addButton.TabIndex = 4;
             addButton.Text = "Add";
             addButton.UseVisualStyleBackColor = true;
             addButton.Click += addButton_Click;
@@ -64,14 +64,14 @@
             siteNameTextBox.Location = new Point(32, 46);
             siteNameTextBox.Name = "siteNameTextBox";
             siteNameTextBox.Size = new Size(245, 23);
-            siteNameTextBox.TabIndex = 2;
+            siteNameTextBox.TabIndex = 0;
             // 
             // cancelButton
             // 
             cancelButton.Location = new Point(163, 116);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(84, 23);
-            cancelButton.TabIndex = 3;
+            cancelButton.TabIndex = 5;
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
             cancelButton.Click += cancelButton_Click;
@@ -82,7 +82,7 @@
             monthLabel.Location = new Point(312, 28);
             monthLabel.Name = "monthLabel";
             monthLabel.Size = new Size(46, 15);
-            monthLabel.TabIndex = 33;
+            monthLabel.TabIndex = 7;
             monthLabel.Text = "Month ";
             // 
             // dayLabel
@@ -91,7 +91,7 @@
             dayLabel.Location = new Point(400, 28);
             dayLabel.Name = "dayLabel";
             dayLabel.Size = new Size(27, 15);
-            dayLabel.TabIndex = 32;
+            dayLabel.TabIndex = 8;
             dayLabel.Text = "Day";
             // 
             // yearLabel
@@ -100,7 +100,7 @@
             yearLabel.Location = new Point(467, 28);
             yearLabel.Name = "yearLabel";
             yearLabel.Size = new Size(64, 15);
-            yearLabel.TabIndex = 31;
+            yearLabel.TabIndex = 9;
             yearLabel.Text = "Year (yyyy)";
             // 
             // yearTextBox
@@ -109,7 +109,7 @@
             yearTextBox.MaxLength = 4;
             yearTextBox.Name = "yearTextBox";
             yearTextBox.Size = new Size(77, 23);
-            yearTextBox.TabIndex = 30;
+            yearTextBox.TabIndex = 3;
             // 
             // dayTextBox
             // 
@@ -117,7 +117,7 @@
             dayTextBox.MaxLength = 2;
             dayTextBox.Name = "dayTextBox";
             dayTextBox.Size = new Size(77, 23);
-            dayTextBox.TabIndex = 29;
+            dayTextBox.TabIndex = 2;
             // 
             // monthTextBox
             // 
@@ -125,7 +125,7 @@
             monthTextBox.MaxLength = 2;
             monthTextBox.Name = "monthTextBox";
             monthTextBox.Size = new Size(77, 23);
-            monthTextBox.TabIndex = 28;
+            monthTextBox.TabIndex = 1;
             // 
             // AddNewSiteAndDate
             // 

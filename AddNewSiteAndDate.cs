@@ -13,7 +13,7 @@ namespace OnCallScheduler
 {
     public partial class AddNewSiteAndDate : Form
     {
-        public Sites AddSite { get; } = new Sites();
+        public Sites NewSite { get; } = new Sites();
 
         public bool Cancelled { get; set; } = false;
 
@@ -38,12 +38,12 @@ namespace OnCallScheduler
                 return;
             }
 
-            AddSite.SiteName = siteNameTextBox.Text.Trim();
+            NewSite.SiteName = siteNameTextBox.Text.Trim();
 
             //int.Parse should be fine as it will of been tested already
-            AddSite.Day = int.Parse(dayTextBox.Text);
-            AddSite.Month = int.Parse(monthTextBox.Text);
-            AddSite.Year = int.Parse(yearTextBox.Text);
+            NewSite.Day = int.Parse(dayTextBox.Text);
+            NewSite.Month = int.Parse(monthTextBox.Text);
+            NewSite.Year = int.Parse(yearTextBox.Text);
 
             this.Close();
         }
