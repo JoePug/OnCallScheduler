@@ -286,6 +286,7 @@ namespace OnCallScheduler
             ClearAndResetControls();
             LoadSitesIntoSiteBox();
             needToSave = true;
+            SaveAllData();
         }
 
         #endregion
