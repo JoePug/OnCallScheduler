@@ -191,31 +191,32 @@ namespace OnCallScheduler
             bottomOfPageTextBox.Text = string.Empty;
         }
 
-        private bool TestForValidDates()
-        {
-            bool validDates = false;
+        //moved to AddNewSiteAndDate....shouldn't be needed here anymore. leave for the moment then delete
+        //private bool TestForValidDates()
+        //{
+        //    bool validDates = false;
 
-            try
-            {
-                int a = int.Parse(monthTextBox.Text);
-                a = int.Parse(dayTextBox.Text);
-                a = int.Parse(yearTextBox.Text);
-            }
-            catch (FormatException)
-            {
-                validDates = false;
-                return validDates;
-            }
+        //    try
+        //    {
+        //        int a = int.Parse(monthTextBox.Text);
+        //        a = int.Parse(dayTextBox.Text);
+        //        a = int.Parse(yearTextBox.Text);
+        //    }
+        //    catch (FormatException)
+        //    {
+        //        validDates = false;
+        //        return validDates;
+        //    }
 
-            string input = yearTextBox.Text + "-" + monthTextBox.Text + "-" + dayTextBox.Text;
-            DateTime result; //throw away
+        //    string input = yearTextBox.Text + "-" + monthTextBox.Text + "-" + dayTextBox.Text;
+        //    DateTime result; //throw away
 
-            validDates = DateTime.TryParse(input, out result);
+        //    validDates = DateTime.TryParse(input, out result);
 
-            if (int.Parse(yearTextBox.Text) < 2020) validDates = false;
+        //    if (int.Parse(yearTextBox.Text) < 2020) validDates = false;
 
-            return validDates;
-        }
+        //    return validDates;
+        //}
 
         private void QuitApplication()
         {
