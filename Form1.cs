@@ -252,38 +252,22 @@ namespace OnCallScheduler
 
         private void editSiteButton_Click(object sender, EventArgs e)
         {
-            //todo - gonna have to use the AddNewSiteAndDate Form for this also.
-
             if (selectedSiteIndex == -1) return;
             if (siteComboBox.SelectedIndex == -1 && selectedSiteIndex == -1)
             {
                 return;
             }
 
-            string dialogText = "Are you sure you want to edit the site named: \n\n\t" +
-                                 allSites[selectedSiteIndex].SiteName + "\n\n\t\tTo\n\n\t" +
-                                 siteComboBox.Text + "\n\n\t" +
-                                 "Month = " + monthTextBox.Text +
-                                 "  Day = " + dayTextBox.Text +
-                                 "  Year = " + yearTextBox.Text;
+            AddNewSiteAndDate addSite = new AddNewSiteAndDate(allSites[selectedSiteIndex]);
 
-            DialogResult result = MessageBox.Show(dialogText, "Edit Site???", MessageBoxButtons.YesNo);
-            if (result == DialogResult.No) return;
+            addSite.ShowDialog();
 
-            if (TestForValidDates() == false)
-            {
-                MessageBox.Show("Your starting dates are not valid.");
-                return;
-            }
-
-            allSites[selectedSiteIndex].SiteName = siteComboBox.Text.Trim();
-            allSites[selectedSiteIndex].Month = int.Parse(monthTextBox.Text);
-            allSites[selectedSiteIndex].Day = int.Parse(dayTextBox.Text);
-            allSites[selectedSiteIndex].Year = int.Parse(yearTextBox.Text);
+            if (addSite.Cancelled) return;
 
             ClearAndResetControls();
             LoadSitesIntoSiteBox();
             needToSave = true;
+            SaveAllData();
         }
 
         private void deleteSiteButton_Click(object sender, EventArgs e)

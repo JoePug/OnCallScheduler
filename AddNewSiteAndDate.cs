@@ -22,7 +22,20 @@ namespace OnCallScheduler
             InitializeComponent();
         }
 
-        //todo - Change the title and add button name when editing and take a Sites class in
+        public AddNewSiteAndDate(Sites tempSite)
+        {
+            InitializeComponent();
+
+            NewSite = tempSite;
+            this.Text = "Edit Site";
+            addButton.Text = "Update";
+
+            siteNameTextBox.Text = NewSite.SiteName;
+
+            dayTextBox.Text = NewSite.Day.ToString();
+            monthTextBox.Text = NewSite.Month.ToString();
+            yearTextBox.Text = NewSite.Year.ToString();
+        }
 
         private void addButton_Click(object sender, EventArgs e)
         {
